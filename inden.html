@@ -1,0 +1,2354 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Grande Chasse au Trésor · Afuro Mboa Fest</title>
+<meta name="description" content="La Grande Chasse au Trésor de l’Afuro Mboa Fest : samedi 14 novembre à l’Ecopark, Yaoundé. Équipes de 3 à 5, jusqu’à 500 000 F à partager.">
+<meta name="theme-color" content="#120d0b">
+<meta property="og:type" content="website">
+<meta property="og:title" content="La Grande Chasse au Trésor · Afuro Mboa Fest">
+<meta property="og:description" content="Samedi 14 novembre à l’Ecopark, Yaoundé. Équipes de 3 à 5, jusqu’à 500 000 F à partager. Inscris ton équipe.">
+<meta property="og:image" content="https://afuro-mboa-fest.pages.dev/og.png">
+<meta property="og:url" content="https://afuro-mboa-fest.pages.dev/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23d9281d'/%3E%3Ctext x='32' y='45' font-size='38' font-weight='900' text-anchor='middle' fill='%23f2b53f' font-family='sans-serif'%3E%E5%AE%9D%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Dela+Gothic+One&display=swap">
+<style>
+/* Layout: one narrow tournament column. Poster hero with a vertical kanji title, a sticky tab rail, then one board per view.
+   A separate landscape "big screen" view for projecting the live ranking. Single dark look, by choice: the festival's red / gold / black charter. */
+:root{
+  color-scheme:dark;
+  --night:#120d0b;      /* page ground, warm black */
+  --board:#1c1512;      /* raised boards */
+  --ember:#2a1611;      /* warm tint for featured boards */
+  --well:#281e1a;       /* inputs, pressed states */
+  --rule:#3e2f29;       /* hairlines */
+  --paper:#f7efe4;      /* main text */
+  --dust:#b9a698;       /* secondary text */
+  --red:#d9281d;        /* brand red: actions, live, duels */
+  --red-ink:#ff6b5d;    /* red used as text on dark */
+  --red-soft:rgba(217,40,29,.2);
+  --gold:#f2b53f;       /* brand gold: prizes, winners, clocks */
+  --gold-line:#7a5a22;  /* gold hairline */
+  --gold-soft:rgba(242,181,63,.11);
+  --go:#57c98a;         /* confirmed, qualified, bonus */
+  --go-soft:rgba(87,201,138,.14);
+  --wa:#25d366;         /* WhatsApp button */
+  --qr-bg:#ffffff;      /* QR codes stay black on white in every theme */
+  --qr-ink:#000000;
+  --on-red:#fff7f0;
+  --on-gold:#1d1206;
+  --on-wa:#062b14;
+  --shadow:rgba(0,0,0,.5);
+  --f-display:"Dela Gothic One","Arial Black","Helvetica Neue",Impact,sans-serif;
+  --f-body:"Archivo","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --radius:12px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--night);color:var(--paper);font-family:var(--f-body);font-size:16px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--night)}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p,ul,ol,dl,dd,figure,blockquote{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--gold)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{width:100%;max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.label{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-stretch:82%;color:var(--dust)}
+.muted{color:var(--dust)}
+.fine{font-size:13px;color:var(--dust);line-height:1.45}
+.num{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;-webkit-user-select:all;user-select:all}
+.stack{display:flex;flex-direction:column;gap:10px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+
+/* preview banner (staff only) */
+.preview{background:var(--gold);color:var(--on-gold)}
+.preview .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-block:8px;font-weight:700;font-size:14px;flex-wrap:wrap}
+
+/* top bar */
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap;padding-block:14px 4px}
+.brand{display:flex;gap:8px;align-items:baseline;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-stretch:82%;color:var(--dust)}
+.brand b{color:var(--paper);font-weight:800}
+.phase{display:inline-flex;align-items:center;gap:8px;padding:5px 11px 5px 9px;border-radius:999px;border:1px solid var(--gold-line);background:var(--board);color:var(--gold);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-stretch:85%}
+.phase .dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.phase.is-live{background:var(--red);border-color:var(--red);color:var(--on-red)}
+.phase.is-live .dot{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.updated{width:100%;font-size:12px;color:var(--dust)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--rule);background:
+  radial-gradient(90% 70% at 100% 0%,rgba(217,40,29,.32),transparent 70%),
+  repeating-linear-gradient(-62deg,rgba(242,181,63,.05) 0 1px,transparent 1px 18px),
+  var(--night)}
+.hero-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:start;padding-block:16px 0}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;font-stretch:82%;color:var(--red-ink)}
+.title{margin-top:10px;font-family:var(--f-display);font-weight:400;font-synthesis:none;line-height:1.04;text-transform:uppercase}
+.title .t1{display:block;font-size:clamp(20px,6vw,34px);color:var(--paper)}
+.title .t2{display:block;font-size:clamp(30px,9vw,60px);color:var(--gold)}
+.tagline{margin-top:12px;max-width:34ch;font-size:15px}
+.slogan{margin-top:10px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-stretch:80%;color:var(--dust)}
+.slogan i{font-style:normal;color:var(--red-ink);padding-inline:5px}
+.kanji{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:2px}
+.kanji span{writing-mode:vertical-rl;font-family:var(--f-display);font-weight:400;font-size:clamp(40px,12vw,76px);line-height:1;letter-spacing:.06em;color:var(--gold)}
+.seal{display:grid;place-items:center;width:34px;height:34px;border-radius:5px;background:var(--red);color:var(--on-red);font-family:var(--f-display);font-weight:400;font-size:19px;transform:rotate(-6deg)}
+.hero-mini{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px 0}
+.mini-title{font-family:var(--f-display);font-weight:400;font-synthesis:none;font-size:clamp(17px,5vw,26px);line-height:1.1;text-transform:uppercase}
+.mini-title b{font-weight:400;color:var(--gold)}
+.mini-kanji{flex:none;font-family:var(--f-display);font-size:clamp(20px,6vw,30px);color:var(--gold)}
+.hero.compact .clock{margin-block:10px 14px}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin-top:18px;border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden;background:var(--rule)}
+.facts div{min-width:0;padding:10px 12px;background:var(--board)}
+.facts dt{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-stretch:82%;color:var(--dust)}
+.facts dd{margin-top:2px;font-size:15px;font-weight:700;line-height:1.3}
+.facts dd.gold{color:var(--gold)}
+@media (min-width:600px){.facts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.clock{margin-top:12px;padding:12px;border-radius:var(--radius);border:1px solid var(--rule);background:var(--board)}
+.clock-digits{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.clock-digits.no-days{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cu{display:flex;flex-direction:column;align-items:center;padding:8px 2px 6px;border-radius:8px;background:var(--well)}
+.cu b{font-size:clamp(28px,8.5vw,44px);font-weight:800;font-stretch:78%;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold)}
+.cu i{margin-top:4px;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dust)}
+.clock-now{margin-top:6px;font-family:var(--f-display);font-weight:400;font-size:22px;color:var(--gold)}
+.cta{display:flex;flex-wrap:wrap;gap:10px;padding-block:14px 20px}
+.cta .btn{flex:1 1 auto;white-space:nowrap}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border:1px solid transparent;border-radius:10px;background:var(--well);color:var(--paper);font-size:15px;font-weight:800;letter-spacing:.01em;line-height:1.2;text-align:center;text-decoration:none;cursor:pointer}
+.btn-red{background:var(--red);color:var(--on-red)}
+.btn-gold{background:var(--gold);color:var(--on-gold)}
+.btn-wa{background:var(--wa);color:var(--on-wa)}
+.btn-line{background:transparent;border-color:var(--rule);color:var(--paper)}
+.btn-dark{background:transparent;border-color:var(--on-gold);color:var(--on-gold)}
+.btn-danger{background:transparent;border-color:var(--red-ink);color:var(--red-ink)}
+.btn.armed{background:var(--red);border-color:var(--red);color:var(--on-red)}
+.btn-sm{min-height:38px;padding:0 12px;border-radius:8px;font-size:13px}
+.btn-block{width:100%}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.linkbtn{align-self:center;padding:8px;border:0;background:none;color:var(--dust);font-size:13px;text-decoration:underline;cursor:pointer}
+.link{font-size:13px;font-weight:800;color:var(--gold)}
+
+/* flash band */
+.flash{background:var(--red);color:var(--on-red)}
+.flash .wrap{display:flex;align-items:baseline;gap:12px;padding-block:10px}
+.flash b{flex:none;font-family:var(--f-display);font-weight:400;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.flash p{min-width:0;font-weight:700;overflow-wrap:anywhere}
+
+/* tabs */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--night);border-bottom:1px solid var(--rule)}
+.tabs-in{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.tab{display:flex;align-items:center;justify-content:center;gap:5px;min-height:50px;margin-bottom:-1px;padding:0 2px;border:0;border-bottom:3px solid transparent;background:none;color:var(--dust);font-size:clamp(12px,3.3vw,14px);font-weight:800;letter-spacing:.02em;text-transform:uppercase;font-stretch:76%;line-height:1.1;text-align:center;text-decoration:none;cursor:pointer}
+.tab[aria-selected="true"]{color:var(--paper);border-bottom-color:var(--gold)}
+.live-dot{flex:none;width:7px;height:7px;border-radius:50%;background:var(--red-ink);animation:pulse 1.4s ease-in-out infinite}
+
+/* views */
+.main{padding-block:22px 36px}
+.view{display:flex;flex-direction:column;gap:20px}
+.view [id]{scroll-margin-top:calc(64px + env(safe-area-inset-top,0px))}
+#v-tabs{scroll-margin-top:env(safe-area-inset-top,0px)}
+.view-head h2{font-family:var(--f-display);font-weight:400;font-synthesis:none;font-size:24px;line-height:1.15;text-transform:uppercase}
+.view-head p{margin-top:6px;max-width:60ch;color:var(--dust)}
+.row-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.card{padding:16px;border:1px solid var(--rule);border-radius:var(--radius);background:var(--board)}
+.empty{padding:18px 16px;border:1px dashed var(--rule);border-radius:var(--radius);color:var(--dust);text-align:center}
+.ticks{list-style:none;padding:0;margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.ticks li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:10px;align-items:baseline}
+.ticks li::before{content:"";width:8px;height:8px;transform:rotate(45deg) translateY(-2px);background:var(--gold)}
+
+/* announcements */
+.feed{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px}
+.news{padding:12px 14px;border:1px solid var(--rule);border-radius:var(--radius);background:var(--board)}
+.news:first-child{border-color:var(--gold-line)}
+.news-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.news-meta time{font-size:13px;font-weight:800;font-stretch:82%;font-variant-numeric:tabular-nums;color:var(--dust)}
+.kind{padding:2px 8px;border-radius:4px;background:var(--well);color:var(--dust);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.k-indice .kind{background:var(--gold);color:var(--on-gold)}
+.k-duel .kind{background:var(--red);color:var(--on-red)}
+.k-alerte .kind{background:transparent;color:var(--red-ink);box-shadow:inset 0 0 0 1px var(--red-ink)}
+.k-resultat .kind{background:var(--go);color:var(--on-gold)}
+.news-text{margin-top:6px;white-space:pre-line;overflow-wrap:anywhere}
+
+/* boards */
+.board{list-style:none;padding:0;border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden;background:var(--board)}
+.row{display:grid;grid-template-columns:24px 30px minmax(0,1fr) auto;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid var(--rule)}
+.row:first-child{border-top:0}
+.rank{text-align:right;font-weight:800;font-stretch:80%;font-variant-numeric:tabular-nums;color:var(--dust)}
+.band{display:block;flex:none;width:30px;height:14px;border-radius:3px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28),inset 0 -4px 0 rgba(0,0,0,.2)}
+.who{min-width:0}
+.who b{display:block;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+.who small{display:block;font-size:13px;color:var(--dust)}
+.right{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.score{font-size:20px;font-weight:800;font-stretch:80%;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.score small{margin-left:4px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dust)}
+.chip{padding:2px 8px;border-radius:999px;background:var(--well);color:var(--dust);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.chip.ok,.chip.st-finale{background:var(--go-soft);color:var(--go)}
+.chip.wait{background:transparent;box-shadow:inset 0 0 0 1px var(--rule)}
+.chip.st-course{background:var(--well);color:var(--paper)}
+.chip.st-gagnante{background:var(--gold);color:var(--on-gold)}
+.chip.st-eliminee{background:transparent;color:var(--red-ink);box-shadow:inset 0 0 0 1px var(--red-ink)}
+.row.s-gagnante{background:var(--gold-soft)}
+.row.s-gagnante .rank{color:var(--gold)}
+.row.s-eliminee .who,.row.s-eliminee .score,.row.s-eliminee .band{opacity:.5}
+.row.s-eliminee .who b{text-decoration:line-through;text-decoration-thickness:2px}
+.tchip{font-weight:800;font-variant-numeric:tabular-nums;color:var(--gold);white-space:nowrap}
+.tchip.out,.bigclock.out{color:var(--red-ink)}
+.podium{padding:16px;border:1px solid var(--gold-line);border-radius:var(--radius);background:linear-gradient(160deg,var(--ember),var(--board) 70%)}
+.podium ol{list-style:none;padding:0;margin-top:10px;display:flex;flex-direction:column;gap:10px}
+.podium li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:12px;align-items:center}
+.podium li b{font-family:var(--f-display);font-weight:400;font-size:22px;line-height:1.15;color:var(--gold);overflow-wrap:anywhere}
+.podium li small{display:block;font-size:13px;color:var(--dust)}
+.podium .fine{margin-top:12px}
+
+/* duels */
+.duels{display:grid;gap:10px}
+.duel{padding:14px;border:1px solid var(--red);border-radius:var(--radius);background:linear-gradient(135deg,var(--red-soft),var(--board) 65%)}
+.duel.mine{border-color:var(--gold)}
+.duel-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-stretch:82%;color:var(--red-ink)}
+.vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;margin-top:10px}
+.vs-side{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;text-align:center;font-weight:800;line-height:1.2;overflow-wrap:anywhere}
+.vs-x{font-family:var(--f-display);font-size:24px;color:var(--gold)}
+.duel .fine{margin-top:10px}
+
+/* my team */
+.picker{display:grid;gap:8px}
+.pick{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;min-height:56px;padding:10px 14px;border:1px solid var(--rule);border-radius:10px;background:var(--board);color:var(--paper);font-size:16px;font-weight:800;text-align:left;cursor:pointer}
+.pick small{font-size:13px;font-weight:700;color:var(--dust)}
+.me-head{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:12px}
+.me-head b{display:block;font-family:var(--f-display);font-weight:400;font-size:22px;line-height:1.15;overflow-wrap:anywhere}
+.me-head small{display:block;font-size:13px;color:var(--dust)}
+.me-clock{padding:16px;border:1px solid var(--gold-line);border-radius:var(--radius);background:linear-gradient(160deg,var(--ember),var(--board) 70%);text-align:center}
+.bigclock{margin-top:4px;font-size:clamp(52px,17vw,104px);font-weight:800;font-stretch:72%;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold)}
+.me-clock .fine{margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden;background:var(--rule)}
+.stats div{padding:10px 8px;background:var(--board);text-align:center}
+.stats b{display:block;font-size:24px;font-weight:800;font-stretch:80%;line-height:1.1;font-variant-numeric:tabular-nums}
+.stats span{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-stretch:82%;color:var(--dust)}
+.note{padding:12px 14px;border:1px solid var(--gold-line);border-radius:10px;background:var(--gold-soft);font-size:15px}
+.note.bad{border-color:var(--red-ink);background:var(--red-soft)}
+.note.good{border-color:var(--go);background:var(--go-soft)}
+.log{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px}
+.log li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:8px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--board);font-size:14px}
+.log .plus{color:var(--go);font-weight:800;white-space:nowrap}
+.log .minus{color:var(--red-ink);font-weight:800;white-space:nowrap}
+.log time{font-size:12px;color:var(--dust);font-variant-numeric:tabular-nums}
+.mine-r{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--board)}
+.solved{color:var(--go);font-weight:800;font-size:13px}
+
+/* pass ticket */
+.pass{position:relative;padding:18px 18px 16px;border:1px solid var(--gold-line);border-radius:var(--radius);background:linear-gradient(135deg,var(--ember),var(--board) 65%)}
+.pass-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px 12px;flex-wrap:wrap}
+.pass-name{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;font-stretch:82%;color:var(--gold)}
+.pass-price{font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1.1}
+.pass-price small{font-family:var(--f-body);font-size:14px;font-weight:700;color:var(--dust)}
+.pass-split{margin-top:2px;font-size:14px;color:var(--dust)}
+.pass-total{position:relative;margin-top:14px;padding-top:12px;border-top:1px dashed var(--gold-line);font-weight:800;font-size:17px}
+.pass-total::before,.pass-total::after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--night);border:1px solid var(--gold-line)}
+.pass-total::before{left:-29px;clip-path:inset(0 0 0 50%)}
+.pass-total::after{right:-29px;clip-path:inset(0 50% 0 0)}
+.pass-incl{list-style:none;padding:0;margin-top:10px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.pass-incl li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:8px;align-items:baseline}
+.pass-incl li::before{content:"";width:7px;height:7px;transform:rotate(45deg) translateY(-2px);background:var(--gold)}
+.pass .fine{margin-top:10px}
+.places{display:flex;flex-direction:column;gap:8px}
+.places-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14px;color:var(--dust)}
+.places-top b{font-size:16px;color:var(--paper)}
+.bar{height:8px;border-radius:999px;background:var(--well);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:inherit;background:var(--gold)}
+
+/* registration form */
+.form{display:flex;flex-direction:column;gap:16px}
+.fs{min-width:0;margin:0;padding:14px;border:1px solid var(--rule);border-radius:var(--radius);background:var(--board);display:flex;flex-direction:column;gap:14px}
+.fs legend{padding:0 6px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-stretch:82%;color:var(--gold)}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.member .field{flex:1 1 170px}
+.field label,.lbl{font-size:14px;font-weight:700}
+.input{width:100%;min-height:48px;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--well);color:var(--paper);font-size:16px}
+textarea.input{min-height:96px;resize:vertical}
+.input::placeholder{color:var(--dust);opacity:.75}
+.input[aria-invalid="true"],.seg[aria-invalid="true"]{border-color:var(--red-ink);box-shadow:0 0 0 1px var(--red-ink)}
+.hint{font-size:13px;color:var(--dust)}
+.err{color:var(--red-ink);font-weight:700}
+.colors[aria-invalid="true"]{outline:2px solid var(--red-ink);outline-offset:4px;border-radius:12px}
+.member{display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px}
+.seg{display:inline-flex;flex:none;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--well)}
+.seg label{display:flex}
+.seg input,.color input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.seg span{display:flex;align-items:center;min-height:46px;padding:0 13px;font-size:14px;font-weight:700;color:var(--dust);cursor:pointer}
+.seg input:checked+span{background:var(--paper);color:var(--night)}
+.seg input:focus-visible+span{outline:2px solid var(--gold);outline-offset:-3px}
+.colors{display:flex;flex-wrap:wrap;gap:8px}
+.color span{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 13px 0 9px;border:1px solid var(--rule);border-radius:999px;background:var(--well);font-size:14px;font-weight:700;cursor:pointer}
+.color span::before{content:"";width:22px;height:12px;border-radius:3px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
+.color input:checked+span{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold);color:var(--gold)}
+.color input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+.girls{font-size:14px;font-weight:700;color:var(--dust)}
+.girls.ok{color:var(--go)}
+.girls.no{color:var(--red-ink)}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 14px;border-radius:10px;background:var(--well);font-weight:700}
+.total b{font-family:var(--f-display);font-weight:400;font-size:22px;color:var(--gold)}
+.errbox{padding:12px 14px;border:1px solid var(--red-ink);border-radius:10px;color:var(--red-ink);font-weight:700;font-size:14px}
+.errbox ul{margin:6px 0 0;padding-left:18px;font-weight:600}
+.done{display:flex;flex-direction:column;gap:16px;padding:16px;border:1px solid var(--gold-line);border-radius:var(--radius);background:var(--board)}
+.done h3{font-family:var(--f-display);font-weight:400;font-size:21px;line-height:1.2;text-transform:uppercase;color:var(--gold)}
+.todo{list-style:none;padding:0;display:flex;flex-direction:column;gap:16px;counter-reset:s}
+.todo>li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;counter-increment:s}
+.todo>li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--red);color:var(--on-red);font-family:var(--f-display);font-size:16px}
+.todo>li>div{display:flex;flex-direction:column;gap:10px;min-width:0}
+.msg{width:100%;min-height:220px;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--well);color:var(--paper);font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+
+/* rules */
+.steps{list-style:none;padding:0;display:flex;flex-direction:column}
+.step{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding-bottom:24px}
+.step::before{content:"";position:absolute;left:21px;top:48px;bottom:4px;border-left:2px dashed var(--rule)}
+.step:last-child{padding-bottom:0}
+.step:last-child::before{display:none}
+.step-n{display:grid;place-items:center;width:44px;height:44px;border:2px solid var(--gold);border-radius:50%;color:var(--gold);font-family:var(--f-display);font-size:19px}
+.step-when{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-stretch:82%;color:var(--red-ink)}
+.step h3{margin-top:2px;font-size:19px;font-weight:800;line-height:1.25}
+.step p{margin-top:6px}
+.fork,.env{display:grid;gap:8px;margin-top:10px}
+.fork{grid-template-columns:repeat(2,minmax(0,1fr))}
+.env{grid-template-columns:repeat(3,minmax(0,1fr))}
+.fork div{min-width:0;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--board)}
+.fork em{display:block;font-style:normal;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--dust)}
+.fork b{display:block;margin-top:2px;font-weight:800;line-height:1.25}
+.fork small{display:block;margin-top:4px;font-size:13px;line-height:1.35;color:var(--dust)}
+.env span{display:grid;place-items:center;padding:9px 6px;border-radius:8px;background:var(--well);font-size:13px;font-weight:700;line-height:1.25;text-align:center}
+.env span:first-child{color:var(--go)}
+.env span:nth-child(2){color:var(--red-ink)}
+.env span:last-child{color:var(--gold)}
+.quote{padding:18px 16px;border-radius:var(--radius);background:var(--red);color:var(--on-red)}
+.quote p{font-family:var(--f-display);font-weight:400;font-size:20px;line-height:1.3}
+.quote figcaption{margin-top:8px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.prog{list-style:none;padding:0;border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden;background:var(--board)}
+.prog li{display:grid;grid-template-columns:60px minmax(0,1fr);gap:10px;padding:10px 14px;border-top:1px solid var(--rule)}
+.prog li:first-child{border-top:0}
+.prog time{font-weight:800;font-stretch:80%;font-variant-numeric:tabular-nums;color:var(--dust)}
+.prog li.hl{background:var(--gold-soft)}
+.prog li.hl time,.prog li.hl span{color:var(--gold);font-weight:800}
+.contacts{display:grid;gap:8px}
+.contact{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px 10px 14px;border:1px solid var(--rule);border-radius:10px;background:var(--board)}
+.contact small{display:block;font-size:12px;color:var(--dust)}
+.contact .num{font-size:18px}
+
+/* footer */
+.foot{border-top:1px solid var(--rule)}
+.foot .wrap{display:flex;flex-direction:column;gap:6px;padding-block:22px 96px}
+.foot-brand{font-family:var(--f-display);font-weight:400;font-size:16px;text-transform:uppercase}
+.foot-brand span{margin-left:8px;color:var(--gold)}
+.foot p+p{font-size:13px;color:var(--dust)}
+
+/* sheets: staff panel and riddle */
+.fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 18px;border:1px solid var(--gold);border-radius:999px;background:var(--night);color:var(--gold);font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 8px 24px var(--shadow)}
+.fab i{width:9px;height:9px;border-radius:50%;background:var(--red-ink)}
+.sheet{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);background:var(--night)}
+.sheet.riddle{z-index:55}
+.sheet-head{flex:none;border-bottom:1px solid var(--rule)}
+.sheet-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px 4px}
+.sheet-title{font-family:var(--f-display);font-weight:400;font-size:20px;line-height:1.15;text-transform:uppercase}
+.riddle .sheet-bar{padding-block:12px}
+.sheet-body{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.sheet-body>.wrap{display:flex;flex-direction:column;gap:18px;padding-block:16px 28px}
+.sheet-foot{flex:none;border-top:1px solid var(--rule);background:var(--board);padding-bottom:env(safe-area-inset-bottom,0px)}
+.sheet-foot .wrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-block:10px}
+.sheet-foot .btn{flex:none}
+.sheet-foot .check{margin-right:auto}
+.pubstate{flex:1 1 100%;font-size:13px;font-weight:700;color:var(--dust)}
+.pubstate.dirty{color:var(--gold)}
+.secs{display:flex;overflow-x:auto;scrollbar-width:none}
+.secs::-webkit-scrollbar{display:none}
+.secs .tab{flex:1 0 auto;padding:0 12px}
+.opts{display:grid;gap:8px}
+.opt{display:flex;align-items:flex-start;gap:12px;padding:11px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--board);cursor:pointer}
+.opt input{flex:none;width:18px;height:18px;margin:2px 0 0;accent-color:var(--gold)}
+.opt b{display:block;font-weight:800}
+.opt small{display:block;font-size:13px;color:var(--dust)}
+.opt:has(input:checked){border-color:var(--gold-line);background:var(--gold-soft)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.trow,.sduel,.rcard{display:flex;flex-direction:column;gap:10px;padding:12px;border:1px solid var(--rule);border-radius:var(--radius);background:var(--board)}
+.sduel.on{border-color:var(--red)}
+.trow-top{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:10px}
+.trow-clock{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.trow-clock .tchip{font-size:20px}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--well)}
+.stepper button{width:44px;height:44px;border:0;background:none;color:var(--paper);font-size:22px;font-weight:800;cursor:pointer}
+.stepper output{min-width:34px;text-align:center;font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
+.pills,.adj{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.pills button,.adj button{min-height:38px;padding:0 11px;border:1px solid var(--rule);border-radius:8px;background:var(--well);color:var(--dust);font-size:13px;font-weight:700;cursor:pointer}
+.pills button[aria-pressed="true"]{border-color:var(--paper);background:var(--paper);color:var(--night)}
+.adj .label{margin-inline:2px 2px}
+.adj button.plus{color:var(--go);font-weight:800}
+.adj button.minus{color:var(--red-ink);font-weight:800}
+.check{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;cursor:pointer}
+.check input{width:18px;height:18px;margin:0;accent-color:var(--gold)}
+.nlist{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px}
+.nlist li{display:flex;flex-direction:column;gap:8px;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--board)}
+.notice{padding:12px 14px;border:1px solid var(--gold-line);border-radius:10px;background:var(--gold-soft);display:flex;flex-direction:column;gap:10px;font-size:14px}
+.rcard-in{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:start}
+.qr{width:128px;height:128px;border-radius:6px;overflow:hidden;background:var(--qr-bg)}
+.qr svg{display:block;width:100%;height:100%}
+.qr.wait{display:grid;place-items:center;padding:8px;font-size:12px;color:var(--on-gold);text-align:center}
+@media (max-width:420px){.rcard-in{grid-template-columns:minmax(0,1fr)}.qr{width:170px;height:170px}}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:60;width:max-content;max-width:calc(100% - 32px);transform:translateX(-50%);padding:10px 16px;border-radius:10px;background:var(--paper);color:var(--night);font-size:14px;font-weight:700;box-shadow:0 8px 24px var(--shadow)}
+.sheet:not([hidden])~.toast{top:calc(64px + env(safe-area-inset-top,0px));bottom:auto}
+
+/* riddle */
+.rq-box{padding:18px 16px;border:1px solid var(--gold-line);border-radius:var(--radius);background:linear-gradient(160deg,var(--ember),var(--board) 70%)}
+.rq{font-size:19px;line-height:1.5;white-space:pre-line;overflow-wrap:anywhere}
+.hintbox{margin-top:14px;font-size:15px}
+.hintbox summary{cursor:pointer;font-weight:800;color:var(--gold)}
+.hintbox p{margin-top:8px;white-space:pre-line}
+.ok-box{padding:16px;border:1px solid var(--go);border-radius:var(--radius);background:var(--go-soft)}
+.ok-box b{color:var(--go)}
+.ok-box p+p{margin-top:8px;white-space:pre-line;overflow-wrap:anywhere}
+.strip{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border:1px solid var(--rule);border-radius:10px;background:var(--board)}
+.strip .who{display:flex;align-items:center;gap:10px}
+.strip .tchip{font-size:22px}
+
+/* big screen */
+.scr{display:flex;flex-direction:column;gap:clamp(10px,1.4vw,26px);min-height:100vh;padding-block:clamp(12px,1.6vw,30px);padding-left:max(clamp(16px,2vw,40px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,2vw,40px),env(safe-area-inset-right,0px))}
+.scr-head{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap}
+.scr-title{font-family:var(--f-display);font-weight:400;font-synthesis:none;font-size:clamp(20px,2.8vw,54px);line-height:1.05;text-transform:uppercase}
+.scr-title b{font-weight:400;color:var(--gold)}
+.scr-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.scr-now{font-size:clamp(16px,1.6vw,30px);font-weight:800;font-stretch:80%;font-variant-numeric:tabular-nums;color:var(--dust)}
+.scr-main{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(10px,1.4vw,26px);align-items:start}
+@media (max-aspect-ratio:1/1){.scr-main{grid-template-columns:minmax(0,1fr)}}
+.scr-col{display:flex;flex-direction:column;gap:clamp(10px,1.4vw,26px);min-width:0}
+.scr-card{padding:clamp(14px,1.6vw,30px);border:1px solid var(--rule);border-radius:clamp(10px,1vw,20px);background:var(--board)}
+.scr-card.gold{border-color:var(--gold-line);background:linear-gradient(160deg,var(--ember),var(--board) 70%)}
+.scr-label{font-size:clamp(12px,1.1vw,22px);font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-stretch:82%;color:var(--dust)}
+.scr-clock{margin-top:.15em;font-size:clamp(60px,9.5vw,200px);font-weight:800;font-stretch:70%;line-height:.92;font-variant-numeric:tabular-nums;color:var(--gold)}
+.scr-sub{margin-top:.5em;font-size:clamp(14px,1.3vw,26px);color:var(--dust)}
+.scr .duels{gap:clamp(8px,1vw,20px);margin-top:clamp(8px,.8vw,16px)}
+.scr .duel{padding:clamp(12px,1.3vw,26px)}
+.scr .duel-top{font-size:clamp(12px,1.05vw,20px)}
+.scr .vs-side{font-size:clamp(16px,1.8vw,34px)}
+.scr .vs-x{font-size:clamp(24px,2.8vw,56px)}
+.scr .band{width:clamp(30px,2.6vw,52px);height:clamp(14px,1.2vw,24px)}
+.scr-news{margin-top:.4em;font-size:clamp(16px,1.6vw,30px);font-weight:700;line-height:1.35;overflow-wrap:anywhere}
+.scr .board{margin-top:clamp(8px,.8vw,16px)}
+.scr .row{grid-template-columns:clamp(24px,2.2vw,44px) clamp(30px,2.6vw,52px) minmax(0,1fr) auto;gap:clamp(8px,1vw,20px);padding:clamp(8px,.9vw,18px) clamp(12px,1.2vw,24px)}
+.scr .who b{font-size:clamp(16px,1.7vw,34px)}
+.scr .who small{font-size:clamp(12px,1.05vw,20px)}
+.scr .rank{font-size:clamp(16px,1.6vw,32px)}
+.scr .score{font-size:clamp(20px,2vw,40px)}
+.scr .score small{font-size:clamp(11px,.85vw,16px)}
+.scr .chip{font-size:clamp(11px,.85vw,16px)}
+.scr .podium li b{font-size:clamp(22px,2.6vw,52px)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+img{max-width:100%}
+.updated.offline{color:var(--red-ink);font-weight:700}
+.foot-staff{align-self:flex-start;padding:6px 0;margin-top:6px}
+.grid2{align-items:end}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="application/json" id="hunt-data">{"v":3,"rev":1,"pub":"","hist":[],"updatedAt":"2026-10-31T12:15:42+01:00","phase":"inscriptions","headline":"","countdown":{"label":"Clôture des inscriptions","at":"2026-11-10T00:00:00+01:00"},"settings":{"teamMin":3,"teamMax":5,"price":6500,"maxTeams":50,"showPlaces":true,"deadlineText":"avant le 10 novembre","wa":"675 94 75 41","wa2":"691 83 05 24","payNumber":"659 44 57 16","payName":"Nnanga Ndougsa","scoreLabel":"Brassards","huntMinutes":120,"timeMode":"restant","envMin":5,"link":""},"hunt":{"start":"","finaleStart":""},"news":[{"id":"n1","at":"2026-10-30T18:55:00+01:00","kind":"info","text":"Les inscriptions sont ouvertes sur la plateforme officielle : 50 équipes maximum, inscription avant le 10 novembre."}],"teams":[],"duels":[],"riddles":[]}</script>
+<script>
+(function () {
+  'use strict';
+
+  /* Firebase project, filled in when the site is packaged. The API key only identifies the project: the database rules protect it. */
+  var FB = { apiKey: 'AIzaSyBL8biWKFM_42s1ix1sNWNdm3ZeOuMNrvQ', databaseURL: 'https://chasse-afuro-mboa-fest-default-rtdb.europe-west1.firebasedatabase.app' };
+  var FB_OK = /^https:\/\//.test(FB.databaseURL) && FB.apiKey.indexOf('__') !== 0;
+  var AUTH_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
+  var TOKEN_URL = 'https://securetoken.googleapis.com/v1/token?key=';
+  var SKEW = 0;
+  function nowMs() { return Date.now() + (SKEW || 0); }
+
+  /* ---------- Constants ---------- */
+  var MIN = 60000, HOUR = 3600000, NBSP = String.fromCharCode(160);
+  var PHASES = [
+    ['inscriptions', 'Inscriptions ouvertes', 'Formulaire actif, bouton « Inscrire mon équipe ».'],
+    ['closes', 'Inscriptions closes', 'Formulaire fermé, liste des équipes inscrites.'],
+    ['jourj', 'Jour J', 'Avant le départ : onglet « Mon équipe », classement à zéro.'],
+    ['live', 'Chasse en cours', 'Point rouge « En direct », chronos, duels et classement.'],
+    ['finale', 'Finale en cours', 'Chrono de la finale et ordre d’arrivée du puzzle.'],
+    ['resultats', 'Résultats', 'Les équipes gagnantes s’affichent en haut du direct.']
+  ];
+  var PHASE_LABEL = toMap(PHASES);
+  var PRE = { inscriptions: 1, closes: 1 };
+  var BOARD = { jourj: 1, live: 1, finale: 1, resultats: 1 };
+  var LIVE = { live: 1, finale: 1 };
+  var VIEWS = ['direct', 'inscription', 'regles', 'equipes', 'mon-equipe'];
+  var VIEW_OK = toMap(VIEWS.map(function (v) { return [v, 1]; }));
+  var SECS = [['pilotage', 'Pilotage'], ['arene', 'Arène'], ['equipes', 'Équipes'], ['annonces', 'Annonces'], ['enigmes', 'Énigmes'], ['reglages', 'Réglages']];
+  var SEC_OK = toMap(SECS);
+  var COLORS = [
+    ['rouge', 'Rouge', '#d7261e'], ['or', 'Or', '#e8b23a'], ['noir', 'Noir', '#101010'], ['blanc', 'Blanc', '#f3efe8'],
+    ['bleu', 'Bleu', '#2f6ce5'], ['vert', 'Vert', '#2a9d57'], ['violet', 'Violet', '#7c4bd8'], ['rose', 'Rose', '#e3579c'],
+    ['orange', 'Orange', '#f07b1c'], ['turquoise', 'Turquoise', '#19b2ad']
+  ];
+  var COLOR = {};
+  COLORS.forEach(function (c) { COLOR[c[0]] = { label: c[1], hex: c[2] }; });
+  var STATUSES = [['pret', 'Au départ'], ['course', 'En course'], ['finale', 'Finale'], ['gagnante', 'Gagnante'], ['eliminee', 'Éliminée']];
+  var STATUS_LABEL = toMap(STATUSES);
+  var ORDER = { gagnante: 0, finale: 1, course: 2, pret: 3, eliminee: 4 };
+  var KINDS = [['info', 'Info'], ['indice', 'Indice'], ['duel', 'Duel'], ['alerte', 'Alerte'], ['resultat', 'Résultat']];
+  var KIND_LABEL = toMap(KINDS);
+  var EPREUVES = ['Tir à la corde', 'Anneaux liés', 'Épreuve des filles', 'Épreuve surprise'];
+  var ENVS = [['bonus', 'Bonus de temps'], ['malus', 'Malus de temps'], ['pochettes', 'Pochettes mystères'], ['aucune', 'Pas d’enveloppe']];
+  var ENV_LABEL = toMap(ENVS);
+  var DUEL_ST = { encours: 1, fini: 1, annule: 1 };
+  var TEAM_FIELDS = { name: 1, captain: 1, color: 1, paid: 1, place: 1 };
+  var PROGRAM = [
+    ['10h30', 'Ouverture'], ['12h05', 'Show des Pom-Pom Girls'], ['12h30', 'Karaoké'], ['13h30', 'Show des Pom-Pom Girls'],
+    ['14h00', 'Grande Chasse au Trésor', 1], ['16h30', 'Quiz et jeux, jusqu’à 18h'], ['18h00', 'Show des Pom-Pom Girls'],
+    ['18h05', 'Animations, jusqu’à 19h'], ['19h00', 'Grand Show Miss Bloom, jusqu’à 21h'], ['21h00', 'Grande Tombola'],
+    ['21h15', 'Show des Pom-Pom Girls'], ['21h30', 'Night Pool Party']
+  ];
+  var DAYS = ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'];
+  var MONTHS = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+  var STOP = { le: 1, la: 1, les: 1, l: 1, un: 1, une: 1, des: 1, du: 1, de: 1, d: 1 };
+  var QR_URLS = ['qrcode.js'];
+  var LS = { form: 'chasse-afuro-form-v1', staff: 'chasse-afuro-staff-v3', team: 'chasse-afuro-team', riddles: 'chasse-afuro-riddles', secrets: 'chasse-afuro-secrets', auto: 'chasse-afuro-auto', auth: 'chasse-afuro-auth', cache: 'chasse-afuro-cache', skew: 'chasse-afuro-skew' };
+
+  /* ---------- Helpers ---------- */
+  function toMap(list) { var m = {}; list.forEach(function (x) { m[x[0]] = x[1]; }); return m; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function $(id) { return document.getElementById(id); }
+  function all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function rid() { return Math.random().toString(36).slice(2, 8) + nowMs().toString(36).slice(-4); }
+  function str(v, max) { v = typeof v === 'string' ? v : (v == null ? '' : String(v)); v = v.trim(); return max ? v.slice(0, max) : v; }
+  function int(v, d, lo, hi) { var n = parseInt(v, 10); if (isNaN(n)) n = d; if (lo != null && n < lo) n = lo; if (hi != null && n > hi) n = hi; return n; }
+  function arr(v) { return Array.isArray(v) ? v : []; }
+  function obj(v) { return v && typeof v === 'object' && !Array.isArray(v); }
+  function digits(s) { return String(s || '').replace(/\D/g, ''); }
+  function group(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+  function money(n) { return group(n).split(' ').join(NBSP) + NBSP + 'F'; }
+  function moneyPlain(n) { return group(n) + ' F'; }
+  function lower(s) { return String(s || '').toLowerCase(); }
+  function unit(label, n) { var l = lower(label) || 'points'; return n > 1 ? l : l.replace(/s$/, ''); }
+  function ordinal(n) { return n === 1 ? '1re' : n + 'e'; }
+  function smooth() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'; } catch (e) { return 'auto'; } }
+  function val(id) { var el = $(id); return el ? el.value : ''; }
+  function radioVal(name) { var el = document.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ''; }
+  function setRadio(name, v) { all('input[name="' + name + '"]').forEach(function (r) { r.checked = r.value === v; }); }
+  function loadLS(k) { try { var s = localStorage.getItem(k); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
+  function saveLS(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* stockage indisponible */ } }
+  function delLS(k) { try { localStorage.removeItem(k); } catch (e) { /* stockage indisponible */ } }
+  var timers = {};
+  function later(key, fn, ms) { clearTimeout(timers[key]); timers[key] = setTimeout(fn, ms); }
+  function noop() {}
+
+  /* Time: Cameroon is UTC+1 all year, so every date is computed in that zone whatever the phone says. */
+  function wat(ms) { return new Date(ms + HOUR); }
+  function parseT(iso) { if (!iso) return null; var t = Date.parse(iso); return isNaN(t) ? null : t; }
+  function isoWAT(ms) { var d = wat(ms); return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate()) + 'T' + pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes()) + ':' + pad(d.getUTCSeconds()) + '+01:00'; }
+  function hhmm(ms) { var d = wat(ms); return d.getUTCHours() + 'h' + pad(d.getUTCMinutes()); }
+  function dayLabel(ms) { var d = wat(ms); return DAYS[d.getUTCDay()] + ' ' + d.getUTCDate() + ' ' + MONTHS[d.getUTCMonth()]; }
+  function sameDay(a, b) { var x = wat(a), y = wat(b); return x.getUTCFullYear() === y.getUTCFullYear() && x.getUTCMonth() === y.getUTCMonth() && x.getUTCDate() === y.getUTCDate(); }
+  function when(ms) { return sameDay(ms, nowMs()) ? hhmm(ms) : dayLabel(ms) + ' · ' + hhmm(ms); }
+  function whenLong(ms) { return sameDay(ms, nowMs()) ? 'aujourd’hui à ' + hhmm(ms) : 'le ' + dayLabel(ms) + ' à ' + hhmm(ms); }
+  function toInputs(iso) { var t = parseT(iso); if (t == null) return ['', '']; var d = wat(t); return [d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate()), pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes())]; }
+  function fromInputs(date, time) { if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return ''; if (!/^\d{2}:\d{2}$/.test(time)) time = '00:00'; return date + 'T' + time + ':00+01:00'; }
+  function fmtDur(ms) { var t = Math.max(0, Math.floor(ms / 1000)), h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), s = t % 60; return (h ? h + ':' + pad(m) : pad(m)) + ':' + pad(s); }
+  function minLabel(sec) { var m = Math.round(Math.abs(sec) / 60); return (sec < 0 ? '−' : '+') + m + ' min'; }
+
+  /* Phones: Cameroon mobile numbers have 9 digits and start with 6. */
+  function normPhone(p) {
+    var d = digits(p);
+    if (d.length === 14 && d.indexOf('00237') === 0) d = d.slice(5);
+    if (d.length === 12 && d.indexOf('237') === 0) d = d.slice(3);
+    return /^6\d{8}$/.test(d) ? d : '';
+  }
+  function fmtPhone(d) { return d.replace(/^(\d{3})(\d{2})(\d{2})(\d{2})$/, '$1 $2 $3 $4'); }
+
+  /* ---------- Riddle crypto ----------
+     The riddle text is sealed with a key that only exists in its QR code, so reading the page source reveals nothing.
+     The success message is sealed with a key derived from the right answer plus the QR key. */
+  var TE = window.TextEncoder ? new TextEncoder() : null;
+  var TD = window.TextDecoder ? new TextDecoder() : null;
+  var ACCENTS = new RegExp('[\\u0300-\\u036f]', 'g');
+  function cryptoOK() { return !!(window.crypto && window.crypto.subtle && TE && TD); }
+  function hexOf(bytes) { var s = ''; for (var i = 0; i < bytes.length; i++) s += (bytes[i] < 16 ? '0' : '') + bytes[i].toString(16); return s; }
+  function unhex(h) { var a = new Uint8Array(h.length / 2); for (var i = 0; i < a.length; i++) a[i] = parseInt(h.substr(i * 2, 2), 16); return a; }
+  function b64(buf) { var b = new Uint8Array(buf), s = ''; for (var i = 0; i < b.length; i++) s += String.fromCharCode(b[i]); return btoa(s); }
+  function unb64(s) { var bin = atob(s), a = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i); return a; }
+  function randHex(n) { return hexOf(crypto.getRandomValues(new Uint8Array(n))); }
+  function aesKey(raw) { return crypto.subtle.importKey('raw', raw, { name: 'AES-GCM' }, false, ['encrypt', 'decrypt']); }
+  function seal(raw, data) {
+    var iv = crypto.getRandomValues(new Uint8Array(12));
+    return aesKey(raw).then(function (k) { return crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, k, TE.encode(JSON.stringify(data))); })
+      .then(function (ct) { return { iv: b64(iv), ct: b64(ct) }; });
+  }
+  function unseal(raw, box) {
+    return aesKey(raw).then(function (k) { return crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(box.iv) }, k, unb64(box.ct)); })
+      .then(function (pt) { return JSON.parse(TD.decode(pt)); });
+  }
+  function answerKey(norm, keyHex, id) {
+    return crypto.subtle.importKey('raw', TE.encode(norm + '|' + keyHex), { name: 'PBKDF2' }, false, ['deriveBits'])
+      .then(function (base) { return crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: TE.encode('afuro-chasse|' + id), iterations: 60000 }, base, 128); })
+      .then(function (bits) { return new Uint8Array(bits); });
+  }
+  function tryAnswer(norm, keyHex, r) {
+    return answerKey(norm, keyHex, r.id).then(function (raw) {
+      var i = 0;
+      var next = function () {
+        if (i >= r.ans.length) return null;
+        var box = r.ans[i++];
+        return unseal(raw, box).then(function (p) { return String(p && p.m || ''); }, next);
+      };
+      return next();
+    });
+  }
+  function normAnswer(s) {
+    s = lower(s);
+    try { s = s.normalize('NFD').replace(ACCENTS, ''); } catch (e) { /* normalisation indisponible */ }
+    var words = s.replace(/['’`]/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim().split(' ').filter(Boolean);
+    if (words.length > 1) words = words.filter(function (w) { return !STOP[w]; });
+    return words.join('');
+  }
+  function riddleFromHash(h) { var m = /^enigme-([0-9a-f]{8})-([0-9a-f]{32})$/.exec(h); return m ? { id: m[1], key: m[2] } : null; }
+
+  /* ---------- State ---------- */
+  function defaults() {
+    return {
+      v: 2, rev: 1, pub: '', hist: [], updatedAt: '', phase: 'inscriptions', headline: '',
+      countdown: { label: '', at: '' },
+      settings: {
+        teamMin: 3, teamMax: 5, price: 6500, maxTeams: 50, showPlaces: true, deadlineText: 'avant le 10 novembre',
+        wa: '675 94 75 41', wa2: '691 83 05 24', payNumber: '659 44 57 16', payName: 'Nnanga Ndougsa', scoreLabel: 'Brassards',
+        huntMinutes: 120, timeMode: 'restant', envMin: 5, link: ''
+      },
+      hunt: { start: '', finaleStart: '' },
+      news: [], teams: [], duels: [], riddles: []
+    };
+  }
+  function isoOr(v) { return parseT(v) != null ? str(v, 40) : ''; }
+  function normalize(raw) {
+    var o = defaults(), s = obj(raw) ? raw : {};
+    var st = obj(s.settings) ? s.settings : {}, cd = obj(s.countdown) ? s.countdown : {}, hu = obj(s.hunt) ? s.hunt : {};
+    var S0 = o.settings;
+    o.rev = int(s.rev, 1, 1);
+    o.pub = str(s.pub, 40);
+    o.hist = arr(s.hist).filter(function (x) { return typeof x === 'string' && x; }).slice(0, 40).map(function (x) { return x.slice(0, 40); });
+    o.updatedAt = isoOr(s.updatedAt);
+    o.phase = PHASE_LABEL[s.phase] ? s.phase : 'inscriptions';
+    o.headline = str(s.headline, 200);
+    o.countdown = { label: str(cd.label, 60), at: isoOr(cd.at) };
+    S0.teamMin = int(st.teamMin, S0.teamMin, 1, 12);
+    S0.teamMax = int(st.teamMax, S0.teamMax, S0.teamMin, 12);
+    S0.price = int(st.price, S0.price, 0, 1000000);
+    S0.maxTeams = int(st.maxTeams, S0.maxTeams, 1, 500);
+    S0.huntMinutes = int(st.huntMinutes, S0.huntMinutes, 5, 600);
+    S0.envMin = int(st.envMin, S0.envMin, 1, 60);
+    S0.timeMode = st.timeMode === 'ecoule' ? 'ecoule' : 'restant';
+    if (typeof st.showPlaces === 'boolean') S0.showPlaces = st.showPlaces;
+    ['deadlineText', 'wa', 'wa2', 'payNumber', 'payName', 'scoreLabel'].forEach(function (k) { if (typeof st[k] === 'string') S0[k] = str(st[k], 80); });
+    if (typeof st.link === 'string' && /^https:\/\//.test(st.link.trim())) S0.link = str(st.link, 200).replace(/#.*$/, '');
+    if (!S0.scoreLabel) S0.scoreLabel = 'Brassards';
+    o.hunt = { start: isoOr(hu.start), finaleStart: isoOr(hu.finaleStart) };
+    o.news = arr(s.news).filter(function (n) { return obj(n) && str(n.text); }).slice(0, 120).map(function (n) {
+      return { id: str(n.id, 24) || rid(), at: isoOr(n.at), kind: KIND_LABEL[n.kind] ? n.kind : 'info', text: str(n.text, 600) };
+    });
+    o.teams = arr(s.teams).filter(function (t) { return obj(t) && str(t.name); }).slice(0, 300).map(function (t) {
+      return {
+        id: str(t.id, 24) || rid(), name: str(t.name, 40), color: COLOR[t.color] ? t.color : 'rouge', captain: str(t.captain, 40),
+        paid: t.paid === true, status: STATUS_LABEL[t.status] ? t.status : 'pret', score: int(t.score, 0, 0, 999), place: int(t.place, 0, 0, 99),
+        addedAt: isoOr(t.addedAt), start: isoOr(t.start), adj: int(t.adj, 0, -86400, 86400),
+        log: arr(t.log).filter(obj).slice(0, 30).map(function (l) { return { at: isoOr(l.at), sec: int(l.sec, 0, -86400, 86400), why: str(l.why, 60) }; }),
+        stopAt: isoOr(t.stopAt), finishAt: isoOr(t.finishAt)
+      };
+    });
+    o.duels = arr(s.duels).filter(function (d) { return obj(d) && str(d.id) && str(d.a) && str(d.b); }).slice(-200).map(function (d) {
+      return { id: str(d.id, 24), n: int(d.n, 0, 0, 9999), a: str(d.a, 24), b: str(d.b, 24), ep: str(d.ep, 60), status: DUEL_ST[d.status] ? d.status : 'encours', winner: str(d.winner, 24), env: ENV_LABEL[d.env] ? d.env : '', at: isoOr(d.at), endAt: isoOr(d.endAt) };
+    });
+    o.riddles = arr(s.riddles).filter(function (r) { return obj(r) && /^[0-9a-f]{8}$/.test(r.id) && typeof r.iv === 'string' && typeof r.ct === 'string'; }).slice(0, 100).map(function (r) {
+      return { id: r.id, n: int(r.n, 0, 0, 999), title: str(r.title, 60), iv: str(r.iv, 40), ct: str(r.ct, 12000), ans: arr(r.ans).filter(function (a) { return obj(a) && typeof a.iv === 'string' && typeof a.ct === 'string'; }).slice(0, 8).map(function (a) { return { iv: str(a.iv, 40), ct: str(a.ct, 4000) }; }) };
+    });
+    return o;
+  }
+  function readData() { try { return JSON.parse($('hunt-data').textContent); } catch (e) { return {}; } }
+  /* What the public sees, without the version bookkeeping (rev, pub, hist, updatedAt). */
+  function core(s) { return JSON.stringify([s.phase, s.headline, s.countdown, s.settings, s.hunt, s.news, s.teams, s.duels, s.riddles]); }
+
+  function findT(s, id) { for (var i = 0; i < s.teams.length; i++) if (s.teams[i].id === id) return s.teams[i]; return null; }
+  function findD(s, id) { for (var i = 0; i < s.duels.length; i++) if (s.duels[i].id === id) return s.duels[i]; return null; }
+  function findR(s, id) { for (var i = 0; i < s.riddles.length; i++) if (s.riddles[i].id === id) return s.riddles[i]; return null; }
+  function nextPlace(s, t) { return 1 + s.teams.filter(function (x) { return x !== t && x.place > 0; }).length; }
+  function setStatus(s, t, v, at) {
+    if (!STATUS_LABEL[v]) return;
+    t.status = v;
+    if (v === 'eliminee' || v === 'finale' || v === 'gagnante') t.stopAt = t.stopAt || at; else t.stopAt = '';
+    if (v !== 'gagnante') { t.place = 0; t.finishAt = ''; } else if (!t.place) t.place = nextPlace(s, t);
+  }
+
+  /* Every staff change is an operation replayed on top of the last published version.
+     If someone else publishes first, the same operations are replayed on their version: nothing is lost or doubled. */
+  function applyOp(s, op) {
+    var t, d;
+    switch (op.k) {
+      case 'phase': if (PHASE_LABEL[op.v]) s.phase = op.v; break;
+      case 'headline': s.headline = String(op.v || ''); break;
+      case 'countdown': s.countdown = { label: String(op.label || ''), at: op.when || '' }; break;
+      case 'set': if (Object.prototype.hasOwnProperty.call(s.settings, op.key)) s.settings[op.key] = op.v; break;
+      case 'team-add': if (op.t && !findT(s, op.t.id)) s.teams.push(clone(op.t)); break;
+      case 'team-del': s.teams = s.teams.filter(function (x) { return x.id !== op.id; }); break;
+      case 'team-set': t = findT(s, op.id); if (t && TEAM_FIELDS[op.f]) t[op.f] = op.v; break;
+      case 'score': t = findT(s, op.id); if (t) t.score = Math.max(0, (t.score || 0) + (op.d || 0)); break;
+      case 'status': t = findT(s, op.id); if (t) setStatus(s, t, op.v, op.at); break;
+      case 'adj':
+        t = findT(s, op.id);
+        if (t) { t.adj = (t.adj || 0) + (op.sec || 0); t.log.unshift({ at: op.at, sec: op.sec || 0, why: op.why || '' }); if (t.log.length > 30) t.log.length = 30; }
+        break;
+      case 'team-start': t = findT(s, op.id); if (t) { t.start = op.when || ''; t.stopAt = ''; if (op.when && t.status === 'pret') t.status = 'course'; } break;
+      case 'hunt-start':
+        s.hunt.start = op.at; s.phase = 'live';
+        s.teams.forEach(function (x) { if (x.status === 'pret' && x.paid) { x.status = 'course'; x.stopAt = ''; } });
+        s.countdown = { label: 'Fin de la chasse', at: isoWAT(parseT(op.at) + (op.mins || 120) * MIN) };
+        break;
+      case 'hunt-reset':
+        /* After a rehearsal: back to the right phase for the date, and the run's announcements go away. */
+        var hs = parseT(s.hunt.start), at = parseT(op.at) || nowMs();
+        if (hs != null) s.news = s.news.filter(function (n) { var t = parseT(n.at); return t == null || t < hs; });
+        s.hunt.start = ''; s.hunt.finaleStart = ''; s.duels = [];
+        if (at < parseT('2026-11-10T00:00:00+01:00')) { s.phase = 'inscriptions'; s.countdown = { label: 'Clôture des inscriptions', at: '2026-11-10T00:00:00+01:00' }; }
+        else { s.phase = at < parseT('2026-11-14T00:00:00+01:00') ? 'closes' : 'jourj'; s.countdown = { label: 'Départ de la chasse', at: '2026-11-14T14:00:00+01:00' }; }
+        s.teams.forEach(function (x) { x.status = 'pret'; x.score = 0; x.adj = 0; x.log = []; x.start = ''; x.stopAt = ''; x.finishAt = ''; x.place = 0; });
+        break;
+      case 'qualify':
+        var ids = arr(op.ids);
+        s.teams.forEach(function (x) {
+          if (ids.indexOf(x.id) >= 0) { if (x.status !== 'gagnante') { x.status = 'finale'; x.stopAt = x.stopAt || op.at; } }
+          else if (x.status === 'course' || (x.status === 'pret' && x.paid)) setStatus(s, x, 'eliminee', op.at);
+        });
+        break;
+      case 'finale-start': s.hunt.finaleStart = op.at; s.phase = 'finale'; s.countdown = { label: '', at: '' }; break;
+      case 'finish':
+        t = findT(s, op.id);
+        if (t && !t.finishAt) { t.finishAt = op.at; t.stopAt = t.stopAt || op.at; t.status = 'gagnante'; t.place = nextPlace(s, t); }
+        break;
+      case 'news-add': if (op.n && !s.news.some(function (x) { return x.id === op.n.id; })) s.news.unshift(clone(op.n)); break;
+      case 'news-del': s.news = s.news.filter(function (x) { return x.id !== op.id; }); break;
+      case 'duel-add':
+        if (op.d && !findD(s, op.d.id)) { var dd = clone(op.d); dd.n = 1 + s.duels.reduce(function (m, x) { return Math.max(m, x.n || 0); }, 0); s.duels.push(dd); }
+        break;
+      case 'duel-result':
+        d = findD(s, op.id);
+        if (d && d.status === 'encours' && (op.w === d.a || op.w === d.b)) {
+          d.status = 'fini'; d.winner = op.w; d.endAt = op.at;
+          var w = findT(s, op.w), l = findT(s, op.w === d.a ? d.b : d.a);
+          if (w) w.score = (w.score || 0) + 1;
+          if (l) setStatus(s, l, 'eliminee', op.at);
+        }
+        break;
+      case 'duel-cancel': d = findD(s, op.id); if (d && d.status === 'encours') d.status = 'annule'; break;
+      case 'duel-env': d = findD(s, op.id); if (d && ENV_LABEL[op.env]) d.env = op.env; break;
+      case 'riddle-set':
+        if (op.r) {
+          var ex = findR(s, op.r.id), nr = clone(op.r);
+          if (ex) { nr.n = ex.n; s.riddles[s.riddles.indexOf(ex)] = nr; }
+          else { nr.n = 1 + s.riddles.reduce(function (m, x) { return Math.max(m, x.n || 0); }, 0); s.riddles.push(nr); }
+        }
+        break;
+      case 'riddle-del': s.riddles = s.riddles.filter(function (x) { return x.id !== op.id; }); break;
+    }
+  }
+
+  var PUB = normalize(readData());
+  /* The last version this phone received: the page opens on it at once, even without network. */
+  var CACHE = loadLS(LS.cache);
+  if (obj(CACHE) && obj(CACHE.st) && int(CACHE.st.rev, 0) > PUB.rev) PUB = normalize(CACHE.st);
+  var PUB_CORE = core(PUB);
+  var RH = obj(CACHE) && obj(CACHE.st) && PUB.rev === int(CACHE.st.rev, 0) ? String(CACHE.rh || '') : riddleHash(PUB.riddles);
+  var ui = {
+    tab: null, screen: false, staff: false, login: false, sec: 'pilotage', canEdit: false, auth: obj(loadLS(LS.auth)) ? loadLS(LS.auth) : null, net: 'init',
+    ops: [], draft: null, publishing: false, sentCount: 0, unsure: null, pulling: null, stale: {}, tabTouched: false,
+    regDone: false, lastReg: null, showAllNews: false, addOpen: false, editTeam: null, forms: defaultForms(),
+    myTeam: loadLS(LS.team) || '', myRiddles: arr(loadLS(LS.riddles)), riddle: null, secretsLoaded: false
+  };
+  /* seen: a version came from the database; loaded: the database has answered at least once. */
+  var SERVER = { seen: false, loaded: false };
+  SKEW = int(loadLS(LS.skew), 0, -86400000, 86400000);
+  var SECRETS = obj(loadLS(LS.secrets)) ? loadLS(LS.secrets) : {};
+  function defaultForms() {
+    return {
+      team: { name: '', cap: '', color: 'rouge', paid: true },
+      news: { kind: 'info', text: '' },
+      duel: { a: '', b: '', ep: EPREUVES[0], other: '', announce: true },
+      riddle: { edit: '', title: '', q: '', h: '', answers: '', ok: '' }
+    };
+  }
+  function S() { return ui.draft || PUB; }
+  function recompute() {
+    if (!ui.ops.length) { ui.draft = null; return; }
+    var s = clone(PUB);
+    ui.ops.forEach(function (op) { try { applyOp(s, op); } catch (e) { /* opération ignorée */ } });
+    ui.draft = normalize(s);
+  }
+  function isDirty() { return ui.ops.length > 0 && core(S()) !== PUB_CORE; }
+  function fromHash() { return String(location.hash || '').replace(/^#/, ''); }
+  function tabsFor(phase) {
+    return PRE[phase]
+      ? [['direct', 'Direct'], ['inscription', 'S’inscrire'], ['regles', 'Règles'], ['equipes', 'Équipes']]
+      : [['direct', 'Direct'], ['mon-equipe', 'Mon équipe'], ['equipes', 'Classement'], ['regles', 'Règles']];
+  }
+  function defaultTab() {
+    var p = S().phase;
+    if (p === 'inscriptions') return 'inscription';
+    if (p === 'closes') return 'equipes';
+    if ((p === 'live' || p === 'jourj' || p === 'finale') && ui.myTeam && findT(S(), ui.myTeam)) return 'mon-equipe';
+    return 'direct';
+  }
+
+  /* ---------- Clocks ---------- */
+  function teamClock(s, t, now) {
+    var st = parseT(t.start) || parseT(s.hunt.start), base = s.settings.huntMinutes * MIN, adj = (t.adj || 0) * 1000, end = parseT(t.stopAt) || now;
+    if (st == null) return { started: false, remaining: base + adj, elapsed: 0 };
+    return { started: true, remaining: st + base + adj - end, elapsed: Math.max(0, end - st - adj) };
+  }
+  function clockText(s, t, now) {
+    var c = teamClock(s, t, now);
+    if (s.settings.timeMode === 'ecoule') return fmtDur(c.elapsed);
+    return c.remaining <= 0 ? 'Temps écoulé' : fmtDur(c.remaining);
+  }
+  function clockOut(s, t, now) { var c = teamClock(s, t, now); return s.settings.timeMode !== 'ecoule' && c.started && c.remaining <= 0; }
+  function timeValue(s, t, now) { var c = teamClock(s, t, now); return s.settings.timeMode === 'ecoule' ? -c.elapsed : c.remaining; }
+  function puzzleTime(s, t) { var a = parseT(s.hunt.finaleStart), b = parseT(t.finishAt); return a != null && b != null ? fmtDur(b - a) : ''; }
+  function globalClock(s, k, now) {
+    if (k === 'hunt') { var st = parseT(s.hunt.start); return st == null ? '' : fmtDur(st + s.settings.huntMinutes * MIN - now); }
+    if (k === 'finale') { var f = parseT(s.hunt.finaleStart); return f == null ? '' : fmtDur(now - f); }
+    if (k === 'now') return hhmm(now);
+    return '';
+  }
+
+  function ranked(s, teams) {
+    var now = nowMs();
+    return teams.slice().sort(function (a, b) {
+      if (ORDER[a.status] !== ORDER[b.status]) return ORDER[a.status] - ORDER[b.status];
+      if (a.status === 'gagnante' && (a.place || 99) !== (b.place || 99)) return (a.place || 99) - (b.place || 99);
+      if (b.score !== a.score) return b.score - a.score;
+      var ta = timeValue(s, a, now), tb = timeValue(s, b, now);
+      if (ta !== tb) return tb - ta;
+      return a.name.localeCompare(b.name, 'fr');
+    });
+  }
+  function inRace(t) { return t.paid || t.status !== 'pret' || t.score > 0; }
+  function registered(teams) { return teams.slice().sort(function (a, b) { return (b.paid ? 1 : 0) - (a.paid ? 1 : 0); }); }
+  function activeDuels(s) { return s.duels.filter(function (d) { return d.status === 'encours'; }); }
+  function teamName(s, id) { var t = findT(s, id); return t ? t.name : 'Équipe retirée'; }
+
+  /* ---------- Small templates ---------- */
+  function head(title, intro) { return '<div class="view-head"><h2>' + esc(title) + '</h2>' + (intro ? '<p>' + esc(intro) + '</p>' : '') + '</div>'; }
+  function tabLink(tab, label, cls) { return '<a href="#' + tab + '" class="' + cls + '" data-act="tab" data-tab="' + tab + '">' + esc(label) + '</a>'; }
+  function band(color) { var c = COLOR[color] || COLOR.rouge; return '<span class="band" style="--c:' + c.hex + '" title="' + esc(c.label) + '"></span>'; }
+  function sizeText(st) { return st.teamMin === st.teamMax ? st.teamMin + ' personnes' : st.teamMin + ' à ' + st.teamMax + ' personnes'; }
+  function tclock(t) { return '<span class="tchip" data-tclock="' + esc(t.id) + '"></span>'; }
+  function timeLabel(s) { return s.settings.timeMode === 'ecoule' ? 'Temps de chasse' : 'Temps restant'; }
+
+  /* ---------- Render: page ---------- */
+  function shellHTML() {
+    return '<div id="v-preview"></div><header id="v-top"></header><section class="hero" id="v-hero"></section><div id="v-flash"></div>' +
+      '<nav class="tabs" id="v-tabs" aria-label="Rubriques"></nav><main class="wrap main" id="v-main">' +
+      VIEWS.map(function (v) { return '<section class="view" id="view-' + v + '" data-view="' + v + '" role="tabpanel" hidden></section>'; }).join('') +
+      '</main><footer class="foot" id="v-foot"></footer><div id="v-screen" hidden></div>' +
+      '<button type="button" class="fab" id="staff-fab" data-act="staff-open" hidden>Espace staff<i id="fab-dot" hidden></i></button>' +
+      '<div class="sheet" id="staff" role="dialog" aria-modal="true" aria-labelledby="staff-title" hidden></div>' +
+      '<div class="sheet riddle" id="riddle" role="dialog" aria-modal="true" aria-labelledby="riddle-title" hidden></div>' +
+      '<div class="sheet riddle" id="login" role="dialog" aria-modal="true" aria-labelledby="login-title" hidden></div>' +
+      '<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>';
+  }
+
+  function renderTop() {
+    var s = S(), live = !!LIVE[s.phase], up = parseT(s.updatedAt);
+    $('v-top').innerHTML = '<div class="wrap top-in"><p class="brand"><b>Afuro Mboa Fest</b><span aria-hidden="true">·</span><span>Jinx Events</span></p>' +
+      '<p class="phase' + (live ? ' is-live' : '') + '"><span class="dot" aria-hidden="true"></span>' + esc(live ? 'En direct · ' + PHASE_LABEL[s.phase] : PHASE_LABEL[s.phase]) + '</p>' +
+      (ui.net === 'down' ? '<p class="updated offline">Pas de connexion au direct : nouvel essai dans quelques secondes.</p>'
+        : ui.net === 'denied' && ui.canEdit ? '<p class="updated offline">Firebase refuse la lecture : vérifie les règles de sécurité.</p>'
+        : ui.net === 'init' && FB_OK ? '<p class="updated">Connexion au direct…</p>'
+        : up != null ? '<p class="updated">Infos mises à jour ' + esc(whenLong(up)) + '</p>' : '') + '</div>';
+  }
+
+  function renderHero() {
+    var s = S(), ph = s.phase, el = $('v-hero');
+    if (BOARD[ph]) {
+      el.className = 'hero compact';
+      el.innerHTML = '<div class="wrap hero-mini"><p class="mini-title"><span>La Grande</span> <b>Chasse au Trésor</b></p><span class="mini-kanji" aria-hidden="true">宝探し</span></div>' +
+        '<div class="wrap"><div class="clock" id="clock" hidden></div></div>';
+      clockKey = '';
+      tick();
+      return;
+    }
+    el.className = 'hero';
+    var cta = ph === 'inscriptions'
+      ? tabLink('inscription', 'Inscrire mon équipe', 'btn btn-red') + tabLink('regles', 'Comment ça marche', 'btn btn-line')
+      : tabLink('equipes', 'Voir les équipes', 'btn btn-red') + tabLink('regles', 'Le déroulé', 'btn btn-line');
+    el.innerHTML = '<div class="wrap hero-in"><div>' +
+      '<p class="eyebrow">Plateforme officielle</p>' +
+      '<h1 class="title"><span class="t1">La Grande</span><span class="t2">Chasse au Trésor</span></h1>' +
+      '<p class="tagline">Ce n’est pas une simple chasse au trésor, c’est une compétition.</p>' +
+      '<p class="slogan">Coopérer<i>·</i>Réfléchir<i>·</i>Affronter<i>·</i>Gagner</p>' +
+      '</div><div class="kanji" aria-hidden="true"><span>宝探し</span><b class="seal">宝</b></div></div>' +
+      '<div class="wrap"><dl class="facts">' +
+      '<div><dt>Date</dt><dd>Samedi 14 nov. 2026</dd></div>' +
+      '<div><dt>Départ</dt><dd>14h00</dd></div>' +
+      '<div><dt>Lieu</dt><dd>Forêt d’Ecopark, Yaoundé</dd></div>' +
+      '<div><dt>À gagner</dt><dd class="gold">Trophée + jusqu’à 500 000 F</dd></div>' +
+      '</dl><div class="clock" id="clock" hidden></div><div class="cta">' + cta + '</div></div>';
+    clockKey = '';
+    tick();
+  }
+
+  var clockKey = '';
+  function unitBox(k, label) { return '<div class="cu"><b data-u="' + k + '">00</b><i>' + label + '</i></div>'; }
+  function tickHero(now) {
+    var el = $('clock');
+    if (!el) return;
+    var cd = S().countdown, t = parseT(cd.at);
+    if (t == null) { el.hidden = true; clockKey = ''; return; }
+    var diff = t - now, mode = diff >= 86400000 ? 'days' : diff > 0 ? 'run' : diff > -HOUR ? 'now' : 'past';
+    var label = cd.label || 'Compte à rebours';
+    var key = label + '|' + cd.at + '|' + mode;
+    if (key !== clockKey) {
+      clockKey = key;
+      if (mode === 'past') { el.hidden = true; el.innerHTML = ''; return; }
+      el.innerHTML = mode === 'now'
+        ? '<p class="label">' + esc(label) + '</p><p class="clock-now">C’est maintenant !</p>'
+        : '<p class="label">' + esc(label) + ' dans</p><div class="clock-digits' + (mode === 'run' ? ' no-days' : '') + '" role="timer">' + (mode === 'days' ? unitBox('d', 'jours') : '') + unitBox('h', 'heures') + unitBox('m', 'min') + unitBox('s', 'sec') + '</div>';
+      el.hidden = false;
+    }
+    if (mode === 'days' || mode === 'run') {
+      var sec = Math.floor(diff / 1000), parts = { d: Math.floor(sec / 86400), h: pad(Math.floor(sec % 86400 / 3600)), m: pad(Math.floor(sec % 3600 / 60)), s: pad(sec % 60) };
+      all('[data-u]', el).forEach(function (b) { var v = String(parts[b.getAttribute('data-u')]); if (b.textContent !== v) b.textContent = v; });
+    }
+  }
+  function tick() {
+    var now = nowMs(), s = S();
+    tickHero(now);
+    all('[data-tclock]').forEach(function (el) {
+      var t = findT(s, el.getAttribute('data-tclock'));
+      if (!t) return;
+      var txt = clockText(s, t, now);
+      if (el.textContent !== txt) el.textContent = txt;
+      var out = clockOut(s, t, now);
+      if (el.classList.contains('out') !== out) el.classList.toggle('out', out);
+    });
+    all('[data-gclock]').forEach(function (el) { var txt = globalClock(s, el.getAttribute('data-gclock'), now); if (el.textContent !== txt) el.textContent = txt; });
+  }
+
+  function renderFlash() {
+    var h = S().headline;
+    $('v-flash').innerHTML = h ? '<div class="flash"><div class="wrap"><b>Flash</b><p>' + esc(h) + '</p></div></div>' : '';
+  }
+
+  function renderTabs() {
+    var ph = S().phase, live = !!LIVE[ph];
+    $('v-tabs').innerHTML = '<div class="wrap tabs-in" role="tablist">' + tabsFor(ph).map(function (t) {
+      return '<a class="tab" role="tab" href="#' + t[0] + '" id="tab-' + t[0] + '" data-act="tab" data-tab="' + t[0] + '" aria-controls="view-' + t[0] + '" aria-selected="' + (ui.tab === t[0]) + '">' +
+        (t[0] === 'direct' && live ? '<span class="live-dot" aria-hidden="true"></span>' : '') + esc(t[1]) + '</a>';
+    }).join('') + '</div>';
+  }
+
+  function feedHTML(news, max) {
+    var list = news.slice().sort(function (a, b) { return (parseT(b.at) || 0) - (parseT(a.at) || 0); });
+    if (!list.length) return '<p class="empty">Aucune annonce pour l’instant. Elles s’afficheront ici.</p>';
+    var shown = ui.showAllNews ? list : list.slice(0, max || 12);
+    var html = '<ol class="feed">' + shown.map(function (n) {
+      var t = parseT(n.at);
+      return '<li class="news k-' + n.kind + '"><p class="news-meta">' + (t != null ? '<time datetime="' + esc(n.at) + '">' + esc(when(t)) + '</time>' : '') +
+        '<span class="kind">' + esc(KIND_LABEL[n.kind]) + '</span></p><p class="news-text">' + esc(n.text) + '</p></li>';
+    }).join('') + '</ol>';
+    if (list.length > shown.length) html += '<button type="button" class="btn btn-line btn-sm" data-act="news-all">Voir les ' + (list.length - shown.length) + ' annonces plus anciennes</button>';
+    return html;
+  }
+
+  function boardHTML(s, limit) {
+    var st = s.settings, onBoard = !!BOARD[s.phase];
+    var teams = onBoard ? ranked(s, s.teams.filter(inRace)) : registered(s.teams);
+    if (!teams.length) return '<p class="empty">' + (onBoard ? 'Le classement s’affichera ici au départ de la chasse.' : 'Les équipes s’affichent ici dès que leur inscription est confirmée.') + '</p>';
+    var shown = limit ? teams.slice(0, limit) : teams, timed = !!s.hunt.start;
+    return '<ol class="board">' + shown.map(function (t, i) {
+      var c = COLOR[t.color];
+      if (onBoard) {
+        var sub = [];
+        if (t.captain) sub.push('Cap. ' + esc(t.captain));
+        if (t.finishAt && s.hunt.finaleStart) sub.push('Puzzle ' + puzzleTime(s, t));
+        else if (timed || t.start) sub.push(tclock(t));
+        return '<li class="row s-' + t.status + '"><span class="rank">' + (i + 1) + '</span>' + band(t.color) +
+          '<span class="who"><b>' + esc(t.name) + '</b>' + (sub.length ? '<small>' + sub.join(' · ') + '</small>' : '') + '</span>' +
+          '<span class="right"><span class="score">' + t.score + '<small>' + esc(unit(st.scoreLabel, t.score)) + '</small></span>' +
+          '<span class="chip st-' + t.status + '">' + esc(STATUS_LABEL[t.status]) + (t.status === 'gagnante' && t.place ? ' · ' + ordinal(t.place) : '') + '</span></span></li>';
+      }
+      return '<li class="row"><span class="rank">' + (i + 1) + '</span>' + band(t.color) +
+        '<span class="who"><b>' + esc(t.name) + '</b><small>' + esc(c.label) + (t.captain ? ' · Cap. ' + esc(t.captain) : '') + '</small></span>' +
+        '<span class="right"><span class="chip ' + (t.paid ? 'ok' : 'wait') + '">' + (t.paid ? 'Confirmée' : 'Paiement en attente') + '</span></span></li>';
+    }).join('') + '</ol>';
+  }
+
+  function winners(s) {
+    var w = s.teams.filter(function (t) { return t.status === 'gagnante'; });
+    return w.sort(function (a, b) { return (a.place || 99) - (b.place || 99) || b.score - a.score; });
+  }
+  function podiumHTML(s) {
+    var w = winners(s);
+    if (!w.length) return '<div class="card"><p class="label">Résultats</p><p style="margin-top:6px">Les résultats officiels arrivent dans un instant.</p></div>';
+    return '<div class="podium"><p class="label">Équipes gagnantes</p><ol>' + w.map(function (t) {
+      var pt = puzzleTime(s, t);
+      return '<li>' + band(t.color) + '<span class="who"><b>' + esc(t.name) + '</b>' + (pt ? '<small>Puzzle terminé en ' + pt + '</small>' : '') + '</span><span class="chip st-gagnante">' + (t.place ? ordinal(t.place) : 'Gagnante') + '</span></li>';
+    }).join('') + '</ol><p class="fine">Le trophée et jusqu’à 500 000 F se partagent entre les équipes gagnantes.</p></div>';
+  }
+
+  function duelCard(s, d, mine) {
+    var a = findT(s, d.a), b = findT(s, d.b);
+    return '<div class="duel' + (mine ? ' mine' : '') + '"><p class="duel-top"><span>Duel n°' + d.n + '</span><span>' + esc(d.ep || 'Épreuve tirée au sort') + '</span></p>' +
+      '<div class="vs"><span class="vs-side">' + (a ? band(a.color) : '') + esc(a ? a.name : 'Équipe retirée') + '</span><b class="vs-x">VS</b>' +
+      '<span class="vs-side">' + (b ? band(b.color) : '') + esc(b ? b.name : 'Équipe retirée') + '</span></div></div>';
+  }
+  function duelsHTML(s) {
+    var ds = activeDuels(s);
+    if (!ds.length) return '';
+    return '<section class="stack"><h3 class="label">Duels en cours à l’arène</h3><div class="duels">' + ds.map(function (d) { return duelCard(s, d, ui.myTeam && (d.a === ui.myTeam || d.b === ui.myTeam)); }).join('') + '</div></section>';
+  }
+  function finaleHTML(s) {
+    var fin = ranked(s, s.teams.filter(function (t) { return t.status === 'finale' || (t.status === 'gagnante' && t.finishAt); }));
+    return '<div class="me-clock"><p class="label">Finale · chrono du puzzle</p><p class="bigclock" data-gclock="finale"></p></div>' +
+      (fin.length ? '<ol class="board">' + fin.map(function (t, i) {
+        return '<li class="row s-' + t.status + '"><span class="rank">' + (t.place ? t.place : '–') + '</span>' + band(t.color) + '<span class="who"><b>' + esc(t.name) + '</b><small>' +
+          (t.finishAt ? 'Puzzle terminé en ' + puzzleTime(s, t) : 'Assemble le puzzle…') + '</small></span><span class="right"><span class="chip st-' + t.status + '">' + (t.place ? ordinal(t.place) : 'En cours') + '</span></span></li>';
+      }).join('') + '</ol>' : '');
+  }
+
+  function renderDirect() {
+    var s = S(), ph = s.phase, st = s.settings;
+    var intro = {
+      inscriptions: 'Le jour J, les annonces, les duels et le classement s’affichent ici en direct.',
+      closes: 'Le jour J, les annonces, les duels et le classement s’affichent ici en direct.',
+      jourj: 'Départ à 14h00. Choisis ton équipe dans « Mon équipe » pour suivre ton chrono.',
+      live: 'La chasse est en cours. Duels, annonces et classement se mettent à jour ici.',
+      finale: 'La finale se joue maintenant, aux yeux de tout le monde.',
+      resultats: 'La chasse est terminée. Bravo à toutes les équipes.'
+    }[ph];
+    var html = head('Direct', intro);
+    if (ph === 'resultats') html += podiumHTML(s);
+    if (ph === 'finale' && s.hunt.finaleStart) html += finaleHTML(s);
+    if (!BOARD[ph]) {
+      html += '<div class="card"><p class="label">Le 14 novembre, tout se passe ici</p><ul class="ticks">' +
+        '<li>Le chrono de chaque équipe, avec ses bonus et malus</li><li>Les duels de l’arène et les équipes éliminées</li>' +
+        '<li>Les ' + esc(lower(st.scoreLabel)) + ' gagnés par chaque équipe</li><li>Les énigmes à scanner et la finale en direct</li></ul></div>';
+    }
+    html += duelsHTML(s);
+    html += '<section class="stack"><h3 class="label">Annonces</h3>' + feedHTML(s.news) + '</section>';
+    if (ph === 'live' || ph === 'jourj') html += '<section class="stack"><div class="row-head"><h3 class="label">Classement</h3>' + tabLink('equipes', 'Tout voir', 'link') + '</div>' + boardHTML(s, 5) + '</section>';
+    $('view-direct').innerHTML = html;
+  }
+
+  function placesHTML(s) {
+    var st = s.settings, n = s.teams.length, left = Math.max(0, st.maxTeams - n);
+    if (!st.showPlaces || n === 0) return '<p class="fine">Limité à <b>' + st.maxTeams + ' équipes</b>. Inscription ' + esc(st.deadlineText) + '.</p>';
+    return '<div class="places"><div class="places-top"><b>' + left + (left > 1 ? ' places restantes' : ' place restante') + '</b><span>' + n + ' / ' + st.maxTeams + ' équipes</span></div>' +
+      '<div class="bar" role="img" aria-label="' + n + ' équipes inscrites sur ' + st.maxTeams + '"><i style="width:' + Math.min(100, Math.round(n / st.maxTeams * 100)) + '%"></i></div></div>';
+  }
+
+  function passHTML(st) {
+    var n = st.teamMin, m = st.teamMax;
+    var total = n === m ? money(n * st.price) + ' pour une équipe de ' + n : money(n * st.price) + ' à ' + money(m * st.price) + ' pour une équipe de ' + n + ' à ' + m;
+    return '<div class="pass"><div class="pass-top"><p class="pass-name">Pass Chasseur</p><p class="pass-price">' + money(st.price) + '<small> / personne</small></p></div>' +
+      (st.price === 6500 ? '<p class="pass-split">5 000 F entrée du Fest + 1 500 F chasse</p>' : '') +
+      '<p class="pass-total">' + total + '</p>' +
+      '<ul class="pass-incl"><li>Accès à tous les espaces du Fest et à la Pool Party</li><li>Quizz Mboa, karaoké géant et concours de danse</li><li>Le trophée et jusqu’à 500 000 F à partager pour les gagnants</li></ul>' +
+      '<p class="fine">Le plat d’Eru et la boisson offerts sont réservés au Pass simple.</p></div>';
+  }
+
+  function genderHTML(name) {
+    return '<div class="seg" role="radiogroup" aria-label="Fille ou garçon" id="' + name + '">' +
+      '<label><input type="radio" name="' + name + '" id="' + name + '-f" value="f"><span>Fille</span></label>' +
+      '<label><input type="radio" name="' + name + '" id="' + name + '-g" value="g"><span>Garçon</span></label></div>';
+  }
+
+  function formHTML(st) {
+    var rows = '', need = st.teamMin - 1;
+    for (var i = 1; i < st.teamMax; i++) {
+      rows += '<div class="member"><div class="field"><label for="f-m' + i + '">Membre ' + (i + 1) + (i > need ? ' <span class="muted">(facultatif)</span>' : '') + '</label>' +
+        '<input class="input" id="f-m' + i + '" maxlength="40" autocomplete="off" placeholder="Nom ou pseudo"></div>' + genderHTML('f-m' + i + '-g') + '</div>';
+    }
+    return '<form class="form" id="reg" novalidate>' +
+      '<div class="errbox" id="reg-err" role="alert" hidden></div>' +
+      '<fieldset class="fs"><legend>Ton équipe</legend>' +
+      '<div class="field"><label for="f-team">Nom de l’équipe</label><input class="input" id="f-team" maxlength="40" autocomplete="off" placeholder="Ex. Les Kunoichi de Mvog-Ada"></div>' +
+      '<div class="field"><span class="lbl" id="f-color-l">Couleur de l’équipe</span><div class="colors" role="radiogroup" aria-labelledby="f-color-l" id="f-color">' +
+      COLORS.map(function (c) { return '<label class="color"><input type="radio" name="f-color" id="f-color-' + c[0] + '" value="' + c[0] + '"><span style="--c:' + c[2] + '">' + esc(c[1]) + '</span></label>'; }).join('') +
+      '</div><p class="hint">C’est la couleur de vos brassards pendant la chasse.</p></div></fieldset>' +
+      '<fieldset class="fs"><legend>Le capitaine</legend>' +
+      '<div class="member"><div class="field"><label for="f-cap">Nom ou pseudo</label><input class="input" id="f-cap" maxlength="40" autocomplete="name"></div>' + genderHTML('f-cap-g') + '</div>' +
+      '<div class="field"><label for="f-phone">Numéro WhatsApp du capitaine</label><input class="input" id="f-phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="6XX XX XX XX"><p class="hint">Le staff contacte l’équipe sur ce numéro.</p></div></fieldset>' +
+      '<fieldset class="fs"><legend>Les autres membres</legend>' + rows + '<p class="girls" id="girls" aria-live="polite"></p></fieldset>' +
+      '<fieldset class="fs"><legend>Qui t’a invité ?</legend><div class="field"><label for="f-ref">Nom ou code de la personne qui t’a parlé de la chasse <span class="muted">(facultatif)</span></label><input class="input" id="f-ref" maxlength="40" autocomplete="off"></div></fieldset>' +
+      '<div class="total"><span>Total à payer</span><b id="f-total">' + money(st.teamMin * st.price) + '</b></div>' +
+      '<button type="submit" class="btn btn-red btn-block">Préparer mon inscription</button>' +
+      '<button type="button" class="linkbtn" data-act="clear-form">Effacer le formulaire</button></form>';
+  }
+
+  function contactsHTML(st) {
+    var rows = [['WhatsApp · inscriptions', st.wa], ['Autre contact', st.wa2]].filter(function (r) { return r[1]; });
+    return '<section class="stack"><h3 class="label">Contacts</h3><div class="contacts">' + rows.map(function (r) {
+      return '<div class="contact"><span><small>' + esc(r[0]) + '</small><span class="num">' + esc(r[1]) + '</span></span><button type="button" class="btn btn-sm btn-line" data-act="copy" data-copy="' + esc(digits(r[1])) + '">Copier</button></div>';
+    }).join('') + '</div></section>';
+  }
+
+  function renderInscription() {
+    var s = S(), st = s.settings, keep = readForm(), el = $('view-inscription');
+    var html = head('S’inscrire', 'Une équipe de ' + sizeText(st) + ', au moins une fille, un capitaine, un nom et une couleur.');
+    if (s.phase !== 'inscriptions') {
+      el.innerHTML = html + '<div class="card"><p><b>Les inscriptions sont closes.</b> Rendez-vous le samedi 14 novembre à 14h00 à l’Ecopark.</p></div>' + contactsHTML(st);
+      return;
+    }
+    el.innerHTML = html + passHTML(st) + placesHTML(s) + formHTML(st) + '<div id="reg-out" hidden></div>' +
+      '<p class="fine">Il te manque des coéquipiers ? Écris-nous sur WhatsApp au <span class="num">' + esc(st.wa) + '</span>.</p>';
+    fillForm(keep || loadLS(LS.form));
+    updateFormMeta();
+    if (ui.regDone && ui.lastReg) showRegOut(ui.lastReg, false);
+  }
+
+  function step(n, whenTxt, title, text, extra) {
+    return '<li class="step"><span class="step-n">' + n + '</span><div><p class="step-when">' + esc(whenTxt) + '</p><h3>' + esc(title) + '</h3><p>' + esc(text) + '</p>' + (extra || '') + '</div></li>';
+  }
+
+  function renderRegles() {
+    var st = S().settings;
+    var html = head('Le déroulé', 'Comment se joue la Grande Chasse au Trésor, étape par étape.') + '<ol class="steps">' +
+      step(1, 'Avant le 14 novembre', 'Inscris ton équipe', 'Une équipe de ' + sizeText(st) + ' avec au moins une fille, un capitaine, un nom et une couleur. Une fois les frais réglés, ton équipe est enregistrée sur la plateforme officielle.') +
+      step(2, '14h00 – 16h00 · forêt d’Ecopark', 'Énigmes et indices', 'Au top départ, le chrono de chaque équipe démarre sur cette page, onglet « Mon équipe ». Vous parcourez la forêt et scannez les QR codes des énigmes : chaque énigme s’ouvre sur votre téléphone. Les indices mènent à l’un de deux choix :',
+        '<div class="fork"><div><em>Choix A</em><b>Pochettes mystères</b><small>Des artefacts précieux jamais vus au Cameroun.</small></div><div><em>Choix B</em><b>L’arène</b><small>Un duel contre une autre équipe.</small></div></div>') +
+      step(3, 'L’arène', 'Le duel', 'Deux équipes, une épreuve tirée au sort : tir à la corde, anneaux liés et d’autres surprises. Certaines épreuves sont réservées aux filles. L’équipe qui perd sort de la chasse. L’équipe qui gagne continue et prend le brassard de l’équipe adverse.') +
+      step(4, 'Après une victoire', 'L’enveloppe mystère', 'L’équipe peut tenter une enveloppe parmi trois. Seul le capitaine a le droit de choisir. Le bonus ou le malus s’applique tout de suite au chrono de l’équipe.',
+        '<div class="env"><span>Bonus de temps</span><span>Malus de temps</span><span>Des pochettes mystères</span></div>') +
+      step(5, 'Aux yeux de tout le monde', 'La finale', 'Les meilleures équipes restantes, 30 % du nombre de départ, vont en finale : 10 équipes au départ donnent 3 finalistes, 20 en donnent 6. Elles assemblent un puzzle le plus vite possible, chrono affiché en direct. Les premières à le terminer correctement gagnent le trophée et se partagent jusqu’à 500 000 F.') +
+      '</ol>' +
+      '<figure class="quote"><blockquote><p>«' + NBSP + 'Connaître le parcours ne tire pas la corde à ta' + NBSP + 'place.' + NBSP + '»</p></blockquote><figcaption>Sweet Jinx</figcaption></figure>' +
+      '<section class="stack"><h3 class="label">Les pochettes mystères</h3><p>Elles contiennent des artefacts précieux jamais vus au Cameroun ni en Afrique centrale. La surprise se découvre le jour J.</p></section>' +
+      '<section class="stack"><h3 class="label">Programme du Fest · samedi 14 novembre</h3><ol class="prog">' + PROGRAM.map(function (p) {
+        return '<li' + (p[2] ? ' class="hl"' : '') + '><time>' + p[0] + '</time><span>' + esc(p[1]) + '</span></li>';
+      }).join('') + '</ol><p class="fine">Pas chasseur ? Le Pass simple donne accès à tout le Fest, avec un plat d’Eru et une boisson naturelle offerts : 4 000 F en réservation jusqu’au 1er novembre, 5 000 F le jour J.</p></section>' +
+      contactsHTML(st);
+    $('view-regles').innerHTML = html;
+  }
+
+  function renderEquipes() {
+    var s = S(), st = s.settings, onBoard = !!BOARD[s.phase], n = s.teams.length, paid = s.teams.filter(function (t) { return t.paid; }).length;
+    var intro = onBoard
+      ? 'Classement par statut, puis par ' + lower(st.scoreLabel) + ', puis par ' + (st.timeMode === 'ecoule' ? 'temps le plus court' : 'temps restant') + '. Une victoire en duel rapporte le brassard de l’équipe adverse.'
+      : (n ? paid + (paid > 1 ? ' équipes confirmées' : ' équipe confirmée') + (n - paid ? ', ' + (n - paid) + ' en attente de paiement' : '') + '. ' : '') + 'Limité à ' + st.maxTeams + ' équipes.';
+    $('view-equipes').innerHTML = head(onBoard ? 'Classement' : 'Équipes inscrites', intro) + boardHTML(s, 0) +
+      (s.phase === 'inscriptions' ? '<div class="btns">' + tabLink('inscription', 'Inscrire mon équipe', 'btn btn-red') + '</div>' : '');
+  }
+
+  /* ---------- My team (what each team follows on its phone) ---------- */
+  function rememberRiddle(id, key) {
+    var found = ui.myRiddles.filter(function (r) { return r.id === id; })[0];
+    if (!found) { ui.myRiddles.unshift({ id: id, key: key, at: isoWAT(nowMs()), solved: false, msg: '' }); saveLS(LS.riddles, ui.myRiddles.slice(0, 60)); }
+  }
+  function markSolved(id, msg) {
+    ui.myRiddles.forEach(function (r) { if (r.id === id) { r.solved = true; r.msg = msg; } });
+    saveLS(LS.riddles, ui.myRiddles.slice(0, 60));
+  }
+  function renderMine() {
+    var s = S(), el = $('view-mon-equipe'), t = ui.myTeam ? findT(s, ui.myTeam) : null;
+    if (!t && ui.myTeam && FB_OK && !SERVER.loaded && !SERVER.seen) { el.innerHTML = head('Mon équipe', '') + '<p class="muted">Chargement de ton équipe…</p>'; return; }
+    if (!t) {
+      var list = s.teams.filter(inRace).sort(function (a, b) { return a.name.localeCompare(b.name, 'fr'); });
+      el.innerHTML = head('Mon équipe', 'Choisis ton équipe une fois : ton téléphone affiche ensuite votre chrono, vos duels et vos énigmes.') +
+        (list.length ? '<div class="picker">' + list.map(function (x) {
+          return '<button type="button" class="pick" data-act="pick" data-id="' + esc(x.id) + '">' + band(x.color) + '<span>' + esc(x.name) + (x.captain ? '<br><small>Cap. ' + esc(x.captain) + '</small>' : '') + '</span><span aria-hidden="true">›</span></button>';
+        }).join('') + '</div>' : '<p class="empty">Les équipes confirmées apparaîtront ici le jour J.</p>');
+      return;
+    }
+    var now = nowMs(), c = teamClock(s, t, now), race = ranked(s, s.teams.filter(inRace)), pos = race.indexOf(t) + 1;
+    var duel = activeDuels(s).filter(function (d) { return d.a === t.id || d.b === t.id; })[0];
+    var solved = ui.myRiddles.filter(function (r) { return r.solved; }).length;
+    var clockNote = !c.started ? 'Ton chrono démarre au top départ : ' + s.settings.huntMinutes + ' minutes' + (t.adj ? ' (' + minLabel(t.adj) + ' de bonus/malus)' : '') + '.'
+      : t.stopAt ? 'Chrono arrêté à ' + hhmm(parseT(t.stopAt)) + '.' : 'Bonus et malus s’ajoutent ici dès que le staff les publie.';
+    var html = '<div class="me-head">' + band(t.color) + '<div><b>' + esc(t.name) + '</b>' + (t.captain ? '<small>Cap. ' + esc(t.captain) + '</small>' : '') + '</div><span class="chip st-' + t.status + '">' + esc(STATUS_LABEL[t.status]) + '</span></div>' +
+      '<div class="me-clock"><p class="label">' + timeLabel(s) + '</p><p class="bigclock" data-tclock="' + esc(t.id) + '"></p><p class="fine">' + esc(clockNote) + '</p></div>' +
+      '<div class="stats"><div><b>' + t.score + '</b><span>' + esc(unit(s.settings.scoreLabel, t.score)) + '</span></div><div><b>' + (pos ? ordinal(pos) : '–') + '</b><span>sur ' + race.length + '</span></div><div><b>' + solved + '</b><span>' + (solved > 1 ? 'énigmes' : 'énigme') + '</span></div></div>';
+    if (duel) html += '<section class="stack"><h3 class="label">Ton duel</h3>' + duelCard(s, duel, true) + '<p class="note">Rendez-vous à l’arène. Épreuve : ' + esc(duel.ep || 'tirée au sort') + '.</p></section>';
+    if (t.status === 'eliminee') html += '<p class="note bad">Ton équipe est éliminée. Merci d’avoir joué : suis la suite de la chasse dans l’onglet Direct.</p>';
+    if (t.status === 'finale') html += '<p class="note good">Qualifiés pour la finale !' + (s.hunt.finaleStart ? ' Assemblez le puzzle : chrono de la finale ' : ' Attendez le signal du staff pour le puzzle.') + (s.hunt.finaleStart ? '<b class="tchip" data-gclock="finale"></b>' : '') + '</p>';
+    if (t.status === 'gagnante') html += '<p class="note good"><b>Bravo !</b> ' + (t.finishAt && s.hunt.finaleStart ? 'Puzzle terminé en ' + puzzleTime(s, t) : 'Votre équipe gagne') + (t.place ? ' · ' + ordinal(t.place) + ' place' : '') + '.</p>';
+    html += '<section class="stack"><h3 class="label">Bonus et malus</h3>' + (t.log.length ? '<ul class="log">' + t.log.map(function (l) {
+      var at = parseT(l.at);
+      return '<li><span class="' + (l.sec >= 0 ? 'plus' : 'minus') + '">' + (l.sec ? minLabel(l.sec) : '·') + '</span><span>' + esc(l.why || (l.sec >= 0 ? 'Bonus' : 'Malus')) + '</span><time>' + (at != null ? esc(hhmm(at)) : '') + '</time></li>';
+    }).join('') + '</ul>' : '<p class="fine">Aucun bonus ni malus pour l’instant.</p>') + '</section>';
+    html += '<section class="stack"><h3 class="label">Mes énigmes</h3>' + (ui.myRiddles.length ? ui.myRiddles.map(function (r) {
+      var rr = findR(s, r.id);
+      return '<div class="mine-r"><span><b>' + esc(rr ? (rr.title || 'Énigme ' + rr.n) : 'Énigme retirée') + '</b>' + (r.solved ? ' <span class="solved">· résolue</span>' : '') + '</span>' +
+        (rr ? '<button type="button" class="btn btn-sm btn-line" data-act="riddle-open" data-id="' + esc(r.id) + '">Ouvrir</button>' : '') + '</div>';
+    }).join('') : '<p class="fine">Scanne le QR code d’une énigme avec l’appareil photo du téléphone : elle s’ouvre ici et reste dans cette liste.</p>') + '</section>';
+    html += '<button type="button" class="linkbtn" data-act="unpick">Ce n’est pas mon équipe</button>';
+    el.innerHTML = html;
+  }
+
+  function renderFoot() {
+    var st = S().settings;
+    $('v-foot').innerHTML = '<div class="wrap"><p class="foot-brand">Afuro Mboa Fest<span>宝探し</span></p>' +
+      '<p>Plateforme officielle de la Grande Chasse au Trésor · Jinx Events</p>' +
+      '<p>Samedi 14 novembre 2026 · Ecopark, Yaoundé · <span class="num">' + esc(st.wa) + '</span>' + (st.wa2 ? ' · <span class="num">' + esc(st.wa2) + '</span>' : '') + '</p>' +
+      (ui.canEdit ? '' : '<button type="button" class="linkbtn foot-staff" data-act="staff-login">Espace staff</button>') + '</div>';
+  }
+
+  function renderPreview() {
+    var dirty = ui.canEdit && isDirty();
+    $('v-preview').innerHTML = dirty && !ui.screen ? '<div class="preview"><div class="wrap"><span>Aperçu staff : ces changements ne sont pas encore publiés.</span><button type="button" class="btn btn-sm btn-dark" data-act="staff-open">Espace staff</button></div></div>' : '';
+    var dot = $('fab-dot');
+    if (dot) dot.hidden = !dirty;
+  }
+
+  /* ---------- Big screen (#ecran) ---------- */
+  function renderScreen() {
+    var el = $('v-screen');
+    if (!ui.screen) { el.innerHTML = ''; return; }
+    var s = S(), ph = s.phase, left = '', last = s.news.slice().sort(function (a, b) { return (parseT(b.at) || 0) - (parseT(a.at) || 0); })[0];
+    if (ph === 'resultats') left += '<div class="scr-card gold">' + podiumHTML(s).replace('class="podium"', 'class="podium" style="border:0;padding:0;background:none"') + '</div>';
+    else if (ph === 'finale' && s.hunt.finaleStart) left += '<div class="scr-card gold"><p class="scr-label">Finale · chrono du puzzle</p><p class="scr-clock" data-gclock="finale"></p></div>';
+    else if (s.hunt.start) left += '<div class="scr-card gold"><p class="scr-label">Fin de la chasse dans</p><p class="scr-clock" data-gclock="hunt"></p><p class="scr-sub">Départ donné à ' + hhmm(parseT(s.hunt.start)) + '</p></div>';
+    else if (parseT(s.countdown.at) != null) left += '<div class="scr-card gold"><p class="scr-label">' + esc(s.countdown.label || 'Compte à rebours') + '</p><p class="scr-clock" id="scr-cd"></p></div>';
+    else left += '<div class="scr-card gold"><p class="scr-label">Samedi 14 novembre · forêt d’Ecopark</p><p class="scr-clock">14h00</p></div>';
+    var ds = activeDuels(s);
+    if (ds.length) left += '<div class="scr-card"><p class="scr-label">Duels en cours</p><div class="duels">' + ds.map(function (d) { return duelCard(s, d, false); }).join('') + '</div></div>';
+    if (last) left += '<div class="scr-card"><p class="scr-label">Dernière annonce · ' + esc(hhmm(parseT(last.at) || nowMs())) + '</p><p class="scr-news">' + esc(last.text) + '</p></div>';
+    var title = ph === 'finale' ? 'Finale' : ph === 'resultats' ? 'Classement final' : BOARD[ph] ? 'Classement en direct' : 'Équipes inscrites';
+    el.innerHTML = '<div class="scr"><div class="scr-head"><p class="scr-title">La Grande <b>Chasse au Trésor</b></p><div class="scr-tools">' +
+      '<p class="phase' + (LIVE[ph] ? ' is-live' : '') + '"><span class="dot" aria-hidden="true"></span>' + esc(PHASE_LABEL[ph]) + '</p><span class="scr-now" data-gclock="now"></span>' +
+      '<button type="button" class="btn btn-sm btn-line" data-act="fullscreen">Plein écran</button><button type="button" class="btn btn-sm btn-line" data-act="screen-exit">Quitter</button></div></div>' +
+      '<div class="scr-main"><div class="scr-col">' + left + '</div><div class="scr-col"><div class="scr-card"><p class="scr-label">' + title + '</p>' + boardHTML(s, 0) + '</div></div></div></div>';
+    tickScreenCountdown();
+  }
+  function tickScreenCountdown() {
+    var el = $('scr-cd');
+    if (!el) return;
+    var t = parseT(S().countdown.at);
+    el.textContent = t == null ? '' : fmtDur(t - nowMs());
+  }
+  function setScreen(on) {
+    ui.screen = !!on;
+    ['v-preview', 'v-top', 'v-hero', 'v-flash', 'v-tabs', 'v-main', 'v-foot'].forEach(function (id) { $(id).hidden = ui.screen; });
+    $('v-screen').hidden = !ui.screen;
+    $('staff-fab').hidden = ui.screen || !ui.canEdit;
+    renderScreen();
+    renderPreview();
+  }
+
+  /* ---------- Riddle sheet (opened by a QR code) ---------- */
+  function openRiddle(id, key) {
+    rememberRiddle(id, key);
+    ui.riddle = { id: id, key: key, state: 'loading', q: '', h: '', result: '', msg: '', busy: false };
+    var mine = ui.myRiddles.filter(function (r) { return r.id === id; })[0];
+    if (mine && mine.solved) { ui.riddle.result = 'ok'; ui.riddle.msg = mine.msg; }
+    renderRiddle();
+    loadRiddle();
+  }
+  function loadRiddle() {
+    var r = ui.riddle;
+    if (!r) return;
+    var rr = findR(S(), r.id);
+    if (!rr) { r.state = SERVER.loaded || !FB_OK ? 'missing' : (ui.net === 'down' ? 'offline' : 'wait'); renderRiddle(); return; }
+    if (!cryptoOK()) { r.state = 'nocrypto'; renderRiddle(); return; }
+    if (!LIVE[S().phase] && !ui.canEdit) { r.state = 'locked'; renderRiddle(); return; }
+    unseal(unhex(r.key), rr).then(function (p) {
+      if (ui.riddle !== r) return;
+      r.state = 'ok'; r.q = String(p.q || ''); r.h = String(p.h || ''); renderRiddle();
+    }, function () { if (ui.riddle === r) { r.state = 'bad'; renderRiddle(); } });
+  }
+  function renderRiddle() {
+    var el = $('riddle'), r = ui.riddle;
+    if (!r) { el.hidden = true; el.innerHTML = ''; syncScrollLock(); return; }
+    var s = S(), rr = findR(s, r.id), t = ui.myTeam ? findT(s, ui.myTeam) : null, keep = val('riddle-answer');
+    var title = rr ? (rr.title || 'Énigme ' + rr.n) : 'Énigme';
+    var body = {
+      loading: '<p class="muted">Ouverture de l’énigme…</p>',
+      wait: '<p class="muted">Ouverture de l’énigme…</p>',
+      offline: '<div class="card"><p><b>Pas de connexion.</b> L’énigme s’ouvrira dès que le réseau revient.</p></div>',
+      missing: '<div class="card"><p><b>Énigme introuvable.</b> Elle a peut-être été retirée par le staff.</p></div>',
+      bad: '<div class="card"><p><b>Ce QR code n’est pas valide.</b> Scanne-le à nouveau ou montre-le au staff.</p></div>',
+      nocrypto: '<div class="card"><p><b>Ce navigateur ne peut pas ouvrir l’énigme.</b> Ouvre le lien dans Chrome ou Safari.</p></div>',
+      locked: '<div class="card"><p><b>Cette énigme s’ouvrira au départ de la chasse.</b> Elle est enregistrée dans « Mon équipe ».</p></div>'
+    }[r.state] || '';
+    if (r.state === 'ok') {
+      body = '<div class="rq-box"><p class="rq">' + esc(r.q) + '</p>' + (r.h ? '<details class="hintbox"><summary>Voir l’indice</summary><p>' + esc(r.h) + '</p></details>' : '') + '</div>';
+      if (r.result === 'ok') body += '<div class="ok-box"><p><b>Bonne réponse !</b></p>' + (r.msg ? '<p>' + esc(r.msg) + '</p>' : '') + '</div>';
+      else if (rr && rr.ans.length) {
+        body += '<form class="stack" id="riddle-form" novalidate><div class="field"><label for="riddle-answer">Votre réponse</label><input class="input" id="riddle-answer" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="80"></div>' +
+          (r.result === 'bad' ? '<p class="err" role="alert">Ce n’est pas la bonne réponse. Réessayez.</p>' : '') +
+          '<button type="submit" class="btn btn-red btn-block"' + (r.busy ? ' disabled' : '') + '>' + (r.busy ? 'Vérification…' : 'Valider la réponse') + '</button></form>';
+      } else body += '<p class="fine">Résolvez l’énigme pour trouver la suite de la chasse.</p>';
+    }
+    el.innerHTML = '<div class="sheet-head"><div class="wrap"><div class="sheet-bar"><h2 class="sheet-title" id="riddle-title">' + esc(title) + '</h2><button type="button" class="btn btn-sm btn-line" data-act="riddle-close">Fermer</button></div></div></div>' +
+      '<div class="sheet-body"><div class="wrap">' + (t ? '<div class="strip"><span class="who">' + band(t.color) + '<b>' + esc(t.name) + '</b></span>' + tclock(t) + '</div>' : '') + body + '</div></div>';
+    if (keep && $('riddle-answer')) $('riddle-answer').value = keep;
+    el.hidden = false;
+    syncScrollLock();
+    tick();
+  }
+  function closeRiddle() {
+    ui.riddle = null;
+    renderRiddle();
+    if (riddleFromHash(fromHash())) { try { location.hash = BOARD[S().phase] ? 'mon-equipe' : ui.tab; } catch (e) { /* hash indisponible */ } }
+    renderMine();
+  }
+  function submitAnswer() {
+    var r = ui.riddle, rr = r && findR(S(), r.id), norm = normAnswer(val('riddle-answer'));
+    if (!r || !rr || r.busy) return;
+    if (!norm) { var f = $('riddle-answer'); if (f) f.focus(); return; }
+    r.busy = true; r.result = ''; renderRiddle();
+    tryAnswer(norm, r.key, rr).then(function (msg) {
+      r.busy = false;
+      if (msg == null) r.result = 'bad'; else { r.result = 'ok'; r.msg = msg; markSolved(r.id, msg); }
+      if (ui.riddle === r) renderRiddle();
+      renderMine();
+    }, function () { r.busy = false; r.result = 'bad'; if (ui.riddle === r) renderRiddle(); });
+  }
+  function syncScrollLock() { document.documentElement.style.overflow = (ui.staff || ui.riddle || ui.login) ? 'hidden' : ''; }
+
+  function focusIn(id) { var a = document.activeElement, el = $(id); return !!(a && el && a !== document.body && el.contains(a) && /INPUT|TEXTAREA|SELECT/.test(a.tagName)); }
+  function renderPublic() {
+    renderPreview(); renderTop(); renderHero(); renderFlash(); renderTabs();
+    renderDirect();
+    if (focusIn('reg')) ui.stale.reg = true; else { ui.stale.reg = false; renderInscription(); }
+    renderRegles(); renderEquipes(); renderMine(); renderFoot();
+    renderScreen();
+    if (ui.riddle && ui.riddle.state !== 'ok' && ui.riddle.state !== 'loading') loadRiddle();
+    showTab(ui.tab || defaultTab());
+    tick();
+  }
+
+  function showTab(name, scroll) {
+    if (!VIEW_OK[name]) name = defaultTab();
+    ui.tab = name;
+    VIEWS.forEach(function (v) { var el = $('view-' + v); if (el) el.hidden = v !== name; });
+    all('#v-tabs .tab').forEach(function (a) { a.setAttribute('aria-selected', String(a.getAttribute('data-tab') === name)); });
+    var nav = $('v-tabs');
+    if (!nav || !scroll || ui.screen) return;
+    if (scroll === 'force') { nav.scrollIntoView({ block: 'start', behavior: smooth() }); return; }
+    var start = $('v-hero').offsetTop + $('v-hero').offsetHeight + $('v-flash').offsetHeight;
+    if (window.scrollY > start) window.scrollTo({ top: start, behavior: 'auto' });
+  }
+  function goTab(name, scroll) {
+    ui.tabTouched = true;
+    showTab(name, scroll);
+    if (fromHash() !== ui.tab) { try { location.hash = ui.tab; } catch (e) { /* hash indisponible */ } }
+  }
+
+  /* ---------- Registration form ---------- */
+  function readForm() {
+    if (!$('reg')) return null;
+    var o = { team: val('f-team'), color: radioVal('f-color'), cap: val('f-cap'), capG: radioVal('f-cap-g'), phone: val('f-phone'), ref: val('f-ref'), m: [] };
+    for (var i = 1; i < 12; i++) { var el = $('f-m' + i); if (!el) break; o.m.push({ name: el.value, g: radioVal('f-m' + i + '-g') }); }
+    return o;
+  }
+  function fillForm(o) {
+    if (!obj(o) || !$('reg')) return;
+    [['f-team', o.team], ['f-cap', o.cap], ['f-phone', o.phone], ['f-ref', o.ref]].forEach(function (p) { var el = $(p[0]); if (el && typeof p[1] === 'string') el.value = p[1]; });
+    if (o.color) setRadio('f-color', o.color);
+    if (o.capG) setRadio('f-cap-g', o.capG);
+    arr(o.m).forEach(function (m, i) {
+      var el = $('f-m' + (i + 1));
+      if (!el || !m) return;
+      if (typeof m.name === 'string') el.value = m.name;
+      if (m.g) setRadio('f-m' + (i + 1) + '-g', m.g);
+    });
+  }
+  function filledMembers(o) { return o.m.filter(function (m) { return m.name.trim(); }); }
+  function girlsCount(o) { return (o.capG === 'f' ? 1 : 0) + filledMembers(o).filter(function (m) { return m.g === 'f'; }).length; }
+  function teamSize(o, st) { return Math.max(1 + filledMembers(o).length, st.teamMin); }
+  function updateFormMeta() {
+    var o = readForm();
+    if (!o) return;
+    var st = S().settings, g = girlsCount(o), el = $('girls');
+    if (el) {
+      var chosen = !!o.capG || filledMembers(o).some(function (m) { return m.g; });
+      el.className = 'girls' + (g ? ' ok' : chosen ? ' no' : '');
+      el.textContent = g ? g + (g > 1 ? ' filles' : ' fille') + ' dans l’équipe : condition remplie.' : 'Il faut au moins une fille dans l’équipe.';
+    }
+    var t = $('f-total');
+    if (t) t.textContent = money(teamSize(o, st) * st.price);
+  }
+  function validate(o, st) {
+    var errs = [], filled = 0, firstEmpty = 0;
+    if (!o.team.trim()) errs.push(['f-team', 'Donne un nom à ton équipe.']);
+    if (!o.color) errs.push(['f-color', 'Choisis la couleur de l’équipe.']);
+    if (!o.cap.trim()) errs.push(['f-cap', 'Indique le nom ou le pseudo du capitaine.']);
+    if (!o.capG) errs.push(['f-cap-g', 'Précise si le capitaine est une fille ou un garçon.']);
+    if (!normPhone(o.phone)) errs.push(['f-phone', 'Numéro WhatsApp invalide : 9 chiffres qui commencent par 6.']);
+    o.m.forEach(function (m, i) {
+      if (m.name.trim()) { filled++; if (!m.g) errs.push(['f-m' + (i + 1) + '-g', 'Précise fille ou garçon pour ' + m.name.trim() + '.']); }
+      else if (!firstEmpty) firstEmpty = i + 1;
+    });
+    var need = st.teamMin - 1;
+    if (filled < need) errs.push(['f-m' + (firstEmpty || 1), 'Il manque ' + (need - filled) + (need - filled > 1 ? ' membres' : ' membre') + ' : l’équipe compte ' + sizeText(st) + '.']);
+    if (!errs.length && !girlsCount(o)) errs.push(['f-cap-g', 'L’équipe doit compter au moins une fille.']);
+    return errs;
+  }
+  function showErrors(errs) {
+    all('#reg [aria-invalid]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
+    var box = $('reg-err');
+    if (!box) return;
+    if (!errs.length) { box.hidden = true; box.innerHTML = ''; return; }
+    errs.forEach(function (e) { var el = $(e[0]); if (el) el.setAttribute('aria-invalid', 'true'); });
+    box.innerHTML = 'Il reste ' + (errs.length > 1 ? errs.length + ' points' : 'un point') + ' à corriger :<ul>' + errs.map(function (e) { return '<li>' + esc(e[1]) + '</li>'; }).join('') + '</ul>';
+    box.hidden = false;
+    box.scrollIntoView({ block: 'center', behavior: smooth() });
+  }
+  function gLabel(g) { return g === 'f' ? 'fille' : 'garçon'; }
+  function regMessage(o, st) {
+    var members = filledMembers(o), size = teamSize(o, st), c = COLOR[o.color] || COLOR.rouge;
+    var lines = [
+      '*INSCRIPTION – GRANDE CHASSE AU TRÉSOR*', 'Afuro Mboa Fest · samedi 14 novembre 2026', '',
+      '*Équipe :* ' + o.team.trim(), '*Couleur :* ' + c.label,
+      '*Capitaine :* ' + o.cap.trim() + ' (' + gLabel(o.capG) + ') · ' + fmtPhone(normPhone(o.phone)), '*Membres :*'
+    ];
+    members.forEach(function (m, i) { lines.push((i + 2) + '. ' + m.name.trim() + ' (' + gLabel(m.g) + ')'); });
+    lines.push('*Filles :* ' + girlsCount(o) + ' sur ' + (1 + members.length));
+    if (o.ref.trim()) lines.push('*Invité par :* ' + o.ref.trim());
+    lines.push('', '*Montant :* ' + moneyPlain(size * st.price) + ' (' + size + ' × ' + moneyPlain(st.price) + ') envoyé au ' + st.payNumber + ' (' + st.payName + ')', 'Je joins la capture du paiement et une photo de l’équipe.');
+    return lines.join('\n');
+  }
+  function waNumber(n) { var d = normPhone(n) || digits(n); return d.length === 9 ? '237' + d : d; }
+  function showRegOut(o, scroll) {
+    var st = S().settings, out = $('reg-out'), form = $('reg');
+    if (!out || !form) return;
+    var msg = regMessage(o, st), wa = waNumber(st.wa);
+    var href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(msg);
+    out.innerHTML = '<div class="done"><h3>Plus que deux gestes</h3><ol class="todo">' +
+      '<li><div><p><b>Paie ' + money(teamSize(o, st) * st.price) + '</b> par dépôt ou transfert au <span class="num">' + esc(st.payNumber) + '</span> (' + esc(st.payName) + ').</p>' +
+      '<div class="btns"><button type="button" class="btn btn-sm btn-line" data-act="copy" data-copy="' + esc(digits(st.payNumber)) + '">Copier le numéro</button></div></div></li>' +
+      '<li><div><p><b>Envoie ton inscription sur WhatsApp</b> au <span class="num">' + esc(st.wa) + '</span>, avec la capture du paiement et une photo de l’équipe.</p>' +
+      '<div class="btns">' + (wa ? '<a class="btn btn-wa" href="' + esc(href) + '" target="_blank" rel="noopener">Ouvrir WhatsApp</a>' : '') +
+      '<button type="button" class="btn btn-line" data-act="copy-msg">Copier le message</button></div></div></li></ol>' +
+      '<p class="fine">Le staff confirme ton paiement, puis ton équipe apparaît dans l’onglet Équipes.</p>' +
+      '<div class="field"><label for="reg-msg">Ton message d’inscription</label><textarea class="msg" id="reg-msg" readonly rows="12">' + esc(msg) + '</textarea></div>' +
+      '<div class="btns"><button type="button" class="btn btn-sm btn-line" data-act="edit-form">Modifier l’inscription</button></div></div>';
+    out.hidden = false;
+    form.hidden = true;
+    if (scroll) out.scrollIntoView({ block: 'start', behavior: smooth() });
+  }
+
+  /* ---------- Copy, toast, confirm ---------- */
+  var toastTimer;
+  function toast(msg, ms) {
+    var t = $('toast');
+    if (!t) return;
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.hidden = true; }, ms || 3200);
+  }
+  function copyText(text, btn, fallbackEl) {
+    var ok = function () { var old = btn.textContent; btn.textContent = 'Copié'; setTimeout(function () { if (btn.isConnected) btn.textContent = old; }, 1600); };
+    var fail = function () {
+      if (fallbackEl) { fallbackEl.focus(); try { fallbackEl.select(); } catch (e) { /* sélection impossible */ } }
+      toast(fallbackEl ? 'Copie automatique impossible ici : le texte est sélectionné, copie-le.' : 'Copie automatique impossible ici : appuie longuement sur le texte pour le copier.', 4500);
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(ok, fail); return; }
+    } catch (e) { /* presse-papiers refusé */ }
+    fail();
+  }
+  function arm(btn, label, fn) {
+    if (btn.classList.contains('armed')) { fn(); return; }
+    var old = btn.textContent;
+    btn.classList.add('armed'); btn.textContent = label;
+    setTimeout(function () { if (btn.isConnected) { btn.classList.remove('armed'); btn.textContent = old; } }, 4000);
+  }
+
+  /* ---------- Live data: Firebase Realtime Database over REST ----------
+     /public/rev      version number, checked every few seconds (a few bytes)
+     /public/live     everything the pages show, except the riddles
+     /public/riddles  the sealed riddles, downloaded again only when they change (live.rh)
+     /clock           anyone may write the server's own time there: phones read it back to set their clocks right
+     Everyone reads /public; only the staff accounts named in the database rules write it, and each write must raise rev
+     by exactly one, so two staff publishing at once cannot overwrite each other: the second re-reads and replays its changes. */
+  function hashStr(t) { var h = 0x811c9dc5; for (var i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
+  function riddleHash(list) { return hashStr(JSON.stringify(list || [])); }
+  function netErr(denied) { var e = new Error(denied ? 'DENIED' : 'NET'); e.net = !denied; e.denied = !!denied; return e; }
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function dbUrl(path, tok) { return FB.databaseURL.replace(/\/+$/, '') + '/' + path + '.json' + (tok ? '?auth=' + encodeURIComponent(tok) : ''); }
+  function http(url, opts) {
+    var ctl = typeof AbortController === 'function' ? new AbortController() : null, tm = ctl ? setTimeout(function () { ctl.abort(); }, 30000) : 0;
+    return fetch(url, Object.assign({ cache: 'no-store', signal: ctl ? ctl.signal : undefined }, opts || {})).then(function (r) {
+      return r.text().then(function (t) { clearTimeout(tm); var j = null; try { j = t ? JSON.parse(t) : null; } catch (e) { j = null; } return { ok: r.ok, status: r.status, body: j }; });
+    }).catch(function () { clearTimeout(tm); throw netErr(false); });
+  }
+  function getJSON(path) { return http(dbUrl(path)).then(function (r) { if (!r.ok) throw netErr(r.status === 401 || r.status === 403); return r.body; }); }
+  function liveOf(st) { var o = {}; Object.keys(st).forEach(function (k) { if (k !== 'riddles') o[k] = st[k]; }); return o; }
+  /* The newest published version: {st, rh}, or null when nothing has been published yet. */
+  function fetchLatest() {
+    return getJSON('public/live').then(function (live) {
+      if (!obj(live)) return null;
+      var rh = String(live.rh || '');
+      var rp = rh === RH ? Promise.resolve(PUB.riddles) : getJSON('public/riddles');
+      return rp.then(function (list) { var raw = Object.assign({}, live); raw.riddles = list; return { st: normalize(raw), rh: rh }; });
+    });
+  }
+  function keepCopy() { saveLS(LS.cache, { st: PUB, rh: RH, at: Date.now() }); }
+  function refreshStaff() {
+    if (!ui.staff) return;
+    if (focusIn('staff')) { ui.stale.staff = true; updatePubBar(); } else renderStaff();
+  }
+  function adopt(st, rh) {
+    /* Changes whose sending was cut off: if that version reached the database, they are already in it. */
+    if (ui.unsure && st.hist.indexOf(ui.unsure.pub) >= 0) { ui.ops = ui.ops.slice(ui.unsure.count); ui.unsure = null; ui.sentCount = 0; persistStaff(); }
+    var changed = !SERVER.seen || st.rev !== PUB.rev || core(st) !== PUB_CORE || rh !== RH;
+    SERVER.seen = true;
+    if (!changed) return;
+    var before = S().phase;
+    PUB = st; PUB_CORE = core(PUB); RH = rh;
+    recompute();
+    keepCopy();
+    var after = S().phase;
+    if (after !== before && !ui.screen) {
+      var inBar = tabsFor(after).some(function (x) { return x[0] === ui.tab; });
+      if (!inBar || !ui.tabTouched) ui.tab = defaultTab();
+    }
+    renderPublic();
+    refreshStaff();
+  }
+  function setNet(v) {
+    if (ui.net === v) return;
+    ui.net = v;
+    renderTop();
+    if (ui.riddle && (ui.riddle.state === 'wait' || ui.riddle.state === 'offline')) loadRiddle();
+  }
+  function pull(force) {
+    if (!FB_OK) return Promise.resolve();
+    if (ui.pulling) return ui.pulling;
+    if (ui.publishing) return Promise.resolve();
+    ui.pulling = getJSON('public/rev').then(function (rev) {
+      setNet('ok');
+      if (rev == null) return;   /* nothing published yet: the page keeps the version it shipped with */
+      if (!force && SERVER.seen && int(rev, -1) === PUB.rev) return;
+      return fetchLatest().then(function (got) { if (got && !ui.publishing) adopt(got.st, got.rh); });
+    }).then(function () {
+      if (!SERVER.loaded) {
+        SERVER.loaded = true;
+        if (ui.riddle && ui.riddle.state === 'wait') loadRiddle();
+        renderMine();
+      }
+    }, function (e) { setNet(e && e.denied ? 'denied' : 'down'); }).then(function () { ui.pulling = null; });
+    return ui.pulling;
+  }
+  /* Every 5 s on the day, every 20 s before: what changes before the day can wait a little. */
+  function pollDelay() { var p = S().phase; return (LIVE[p] || p === 'jourj' || ui.canEdit) ? 5000 : 20000; }
+  function startPolling() {
+    var loop = function () { later('poll', function () { (document.hidden ? Promise.resolve() : pull(false)).then(loop); }, pollDelay()); };
+    loop();
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) { pull(false); syncClock(false); } });
+    window.addEventListener('online', function () { pull(true); if (ui.canEdit && ui.ops.length) publishNow(); });
+  }
+  /* Server time: the database writes its own clock into /clock and sends it back. */
+  function syncClock(force) {
+    if (!FB_OK) return;
+    if (!force && Date.now() - (ui.clockAt || 0) < 10 * 60000) return;
+    ui.clockAt = Date.now();
+    var t0 = Date.now();
+    var use = function (v, t1) {
+      if (typeof v !== 'number' || !isFinite(v) || t1 - t0 > 5000) return;
+      var skew = Math.round(v - (t0 + t1) / 2);
+      if (Math.abs(skew) < 1500) skew = 0;   /* close enough: keep the phone's own clock */
+      if (skew !== SKEW) { SKEW = skew; saveLS(LS.skew, SKEW); tick(); tickScreenCountdown(); }
+    };
+    http(dbUrl('clock'), { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: '{".sv":"timestamp"}' }).then(function (r) {
+      var t1 = Date.now();
+      if (!r.ok) return;
+      if (typeof r.body === 'number') { use(r.body, t1); return; }
+      return getJSON('clock').then(function (v) { use(v, t1); });
+    }).catch(function () { ui.clockAt = 0; });
+  }
+
+  /* ---------- Staff accounts (Firebase Authentication, e-mail and password) ---------- */
+  function authError(code) {
+    var c = String(code || '');
+    if (/INVALID_LOGIN_CREDENTIALS|INVALID_PASSWORD|EMAIL_NOT_FOUND|INVALID_EMAIL/.test(c)) return 'E-mail ou mot de passe incorrect.';
+    if (/TOO_MANY_ATTEMPTS/.test(c)) return 'Trop d’essais : réessaie dans quelques minutes.';
+    if (/USER_DISABLED/.test(c)) return 'Ce compte est désactivé dans Firebase.';
+    if (/CONFIG/.test(c)) return 'Le site n’est pas encore relié à Firebase.';
+    return 'Connexion impossible. Vérifie ta connexion internet et réessaie.';
+  }
+  function readJSON(r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, j: j }; }, function () { return { ok: r.ok, status: r.status, j: null }; }); }
+  function signIn(email, pass) {
+    if (!FB_OK) return Promise.reject(new Error('CONFIG'));
+    return fetch(AUTH_URL + encodeURIComponent(FB.apiKey), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, password: pass, returnSecureToken: true }) })
+      .then(readJSON).then(function (res) {
+        if (!res.ok || !res.j || !res.j.idToken) throw new Error((res.j && res.j.error && res.j.error.message) || 'LOGIN_FAILED');
+        ui.auth = { email: String(res.j.email || email).toLowerCase(), id: res.j.idToken, refresh: res.j.refreshToken, exp: Date.now() + int(res.j.expiresIn, 3600) * 1000 };
+        saveLS(LS.auth, ui.auth);
+        return ui.auth;
+      });
+  }
+  function refreshAuth() {
+    if (!ui.auth || !ui.auth.refresh) return Promise.reject(new Error('NO_SESSION'));
+    return fetch(TOKEN_URL + encodeURIComponent(FB.apiKey), { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'grant_type=refresh_token&refresh_token=' + encodeURIComponent(ui.auth.refresh) })
+      .then(readJSON, function () { var e = new Error('NET'); e.net = true; throw e; }).then(function (res) {
+        if (!res.ok || !res.j || !res.j.id_token) { var e = new Error((res.j && res.j.error && res.j.error.message) || 'REFRESH_FAILED'); e.session = res.status === 400; throw e; }
+        ui.auth.id = res.j.id_token; ui.auth.refresh = res.j.refresh_token || ui.auth.refresh; ui.auth.exp = Date.now() + int(res.j.expires_in, 3600) * 1000;
+        saveLS(LS.auth, ui.auth);
+        return ui.auth.id;
+      });
+  }
+  function token(force) {
+    if (!ui.auth) return Promise.reject(new Error('NO_SESSION'));
+    if (!force && ui.auth.exp - Date.now() > 120000) return Promise.resolve(ui.auth.id);
+    return refreshAuth();
+  }
+  function signOut() {
+    ui.auth = null; delLS(LS.auth); delLS(LS.staff);
+    ui.canEdit = false; ui.ops = []; ui.sentCount = 0; ui.unsure = null; ui.secretsLoaded = false; recompute();
+    if (ui.staff) closeStaff();
+    $('staff-fab').hidden = true;
+    renderPublic();
+    toast('Déconnexion effectuée.');
+  }
+  function openLogin() {
+    ui.login = true;
+    var el = $('login');
+    el.innerHTML = '<div class="sheet-head"><div class="wrap"><div class="sheet-bar"><h2 class="sheet-title" id="login-title">Espace staff</h2><button type="button" class="btn btn-sm btn-line" data-act="login-close">Fermer</button></div></div></div>' +
+      '<div class="sheet-body"><div class="wrap"><form class="stack" id="login-form" novalidate><p class="fine">Réservé à l’équipe d’organisation : connecte-toi avec le compte créé dans Firebase.</p>' +
+      '<div class="field"><label for="lg-email">E-mail</label><input class="input" id="lg-email" type="email" autocomplete="username" inputmode="email" value="' + esc(ui.auth ? ui.auth.email : '') + '"></div>' +
+      '<div class="field"><label for="lg-pass">Mot de passe</label><input class="input" id="lg-pass" type="password" autocomplete="current-password"></div>' +
+      '<p class="err" id="lg-err" role="alert" hidden></p><button type="submit" class="btn btn-red btn-block" id="lg-btn">Se connecter</button></form></div></div>';
+    el.hidden = false;
+    syncScrollLock();
+    var f = $('lg-email');
+    if (f) f.focus();
+  }
+  function closeLogin() {
+    ui.login = false;
+    $('login').hidden = true; $('login').innerHTML = '';
+    syncScrollLock();
+    if (fromHash() === 'staff') { try { location.hash = ui.tab; } catch (e) { /* hash indisponible */ } }
+  }
+  function submitLogin() {
+    var email = str(val('lg-email'), 120), pass = val('lg-pass'), err = $('lg-err'), btn = $('lg-btn');
+    if (!email || !pass) { if (err) { err.textContent = 'Indique ton e-mail et ton mot de passe.'; err.hidden = false; } return; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Connexion…'; }
+    signIn(email, pass).then(function () {
+      closeLogin();
+      enableStaff();
+      openStaff();
+      if (ui.ops.length) scheduleAuto(false);
+      toast('Connexion réussie : bienvenue dans l’espace staff.');
+    }, function (e) {
+      if (btn) { btn.disabled = false; btn.textContent = 'Se connecter'; }
+      if (err) { err.textContent = authError(e && e.message); err.hidden = false; }
+    });
+  }
+
+  /* ---------- Staff: operations, auto-publish ---------- */
+  function addOp(op, rerender) {
+    if (!ui.canEdit) return;
+    op.at = op.at || isoWAT(nowMs());
+    var last = ui.ops[ui.ops.length - 1];
+    if (op.c && last && last.c === op.c && ui.ops.length - 1 >= ui.sentCount) ui.ops[ui.ops.length - 1] = op; else ui.ops.push(op);
+    recompute();
+    renderPublic();
+    if (rerender !== false) renderStaff(); else updatePubBar();
+    persistStaff();
+    scheduleAuto(!!op.slow);
+  }
+  function news(kind, text) { return { k: 'news-add', n: { id: rid(), at: isoWAT(nowMs()), kind: kind, text: text } }; }
+  function autoOn() { return loadLS(LS.auto) !== false; }
+  function scheduleAuto(slow) {
+    clearTimeout(timers.auto);
+    if (!autoOn() || !ui.canEdit || !ui.ops.length) return;
+    later('auto', function () { publishNow(); }, slow ? 4000 : 1200);
+  }
+  function persistStaff() {
+    if (!ui.canEdit) return;
+    var body = $('staff') && $('staff').querySelector('.sheet-body');
+    saveLS(LS.staff, { ops: ui.ops, unsure: ui.unsure,
+      open: ui.staff, sec: ui.sec, scroll: body ? body.scrollTop : 0, forms: ui.forms, edit: ui.editTeam, add: ui.addOpen, at: Date.now() });
+  }
+
+  function publishNow() {
+    if (!ui.canEdit || ui.publishing || !ui.ops.length || !FB_OK) return;
+    if (!isDirty() && !ui.unsure) { ui.ops = []; recompute(); persistStaff(); renderPublic(); refreshStaff(); return; }
+    clearTimeout(timers.auto); clearTimeout(timers.retry);
+    ui.publishing = true;
+    updatePubBar();
+    var tries = 0, forceTok = false;
+    var run = function () {
+      tries++;
+      return fetchLatest().then(function (got) {
+        var base = got ? got.st : PUB, baseRH = got ? got.rh : RH;
+        if (ui.unsure) {
+          /* An earlier sending was cut off: its changes are dropped here if that version did reach the database. */
+          if (base.hist.indexOf(ui.unsure.pub) >= 0) ui.ops = ui.ops.slice(ui.unsure.count);
+          ui.unsure = null; ui.sentCount = 0; persistStaff();
+        }
+        var sent = ui.ops.length;
+        if (!sent) return { st: base, rh: baseRH };
+        var s = clone(base);
+        ui.ops.slice(0, sent).forEach(function (op) { try { applyOp(s, op); } catch (x) { /* opération ignorée */ } });
+        var next = normalize(s);
+        if (core(next) === core(base)) { ui.ops = ui.ops.slice(sent); return { st: base, rh: baseRH }; }
+        ui.sentCount = sent;
+        next.rev = base.rev + 1; next.pub = rid(); next.updatedAt = isoWAT(nowMs());
+        next.hist = [next.pub].concat(base.hist).slice(0, 40);
+        var nrh = riddleHash(next.riddles), live = liveOf(next), body = { rev: next.rev, live: live };
+        live.rh = nrh;
+        if (!got || nrh !== baseRH) body.riddles = next.riddles;
+        return token(forceTok).then(function (tok) {
+          ui.unsure = { pub: next.pub, count: sent };
+          persistStaff();
+          return http(dbUrl('public', tok), { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        }).then(function (w) {
+          if (w.ok) { ui.unsure = null; ui.sentCount = 0; ui.ops = ui.ops.slice(sent); return { st: next, rh: nrh }; }
+          ui.unsure = null; ui.sentCount = 0;   /* the database answered no: this version was not saved */
+          var why = String((w.body && w.body.error) || '');
+          if ((w.status === 401 || w.status === 403) && tries < 5) {
+            /* Someone else published first (rev already taken), or the session token has expired. */
+            forceTok = /token|expired|auth/i.test(why) || tries === 2;
+            return wait(tries > 1 ? 150 * tries : 0).then(run);
+          }
+          throw new Error(w.status === 401 || w.status === 403 ? 'DENIED' : 'HTTP_' + w.status);
+        });
+      });
+    };
+    run().then(function (res) {
+      ui.publishing = false; ui.pubOffline = false;
+      SERVER.seen = true;
+      PUB = res.st; PUB_CORE = core(PUB); RH = res.rh;
+      recompute(); keepCopy(); persistStaff();
+      renderPublic(); refreshStaff();
+      if (ui.ops.length) scheduleAuto(false);
+    }, function (e) {
+      ui.publishing = false;
+      if (!ui.unsure) ui.sentCount = 0;
+      var m = String((e && e.message) || ''), msg = '';
+      if (e && e.net) {
+        if (!ui.pubOffline) msg = 'Pas de connexion : tes changements sont gardés et partiront tout seuls dès que le réseau revient.';
+        ui.pubOffline = true;
+        later('retry', publishNow, 8000);
+      }
+      else if (m === 'DENIED' || (e && e.denied)) msg = 'Publication refusée : ce compte n’est pas autorisé, ou les règles de sécurité Firebase ne sont pas en place.';
+      else if (m === 'NO_SESSION' || (e && e.session)) { msg = 'Ta session a expiré : reconnecte-toi.'; openLogin(); }
+      else msg = 'La publication n’a pas abouti. Réessaie dans un instant.';
+      persistStaff(); updatePubBar();
+      if (msg) toast(msg, 6500);
+    });
+  }
+
+  /* ---------- Staff: panel ---------- */
+  function teamOf(el) { var row = el.closest('[data-team]'); var id = row && row.getAttribute('data-team'); return id ? findT(S(), id) : null; }
+  function opt(name, value, checked, title, sub) {
+    return '<label class="opt"><input type="radio" name="' + name + '" value="' + value + '" data-bind="' + name + '"' + (checked ? ' checked' : '') + '><span><b>' + esc(title) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span></label>';
+  }
+  function inputField(id, label, attrs, value) {
+    return '<div class="field"><label for="' + id + '">' + esc(label) + '</label><input class="input" id="' + id + '" value="' + esc(value) + '"' + attrs + '></div>';
+  }
+  function areaField(id, label, attrs, value, rows) {
+    return '<div class="field"><label for="' + id + '">' + esc(label) + '</label><textarea class="input" id="' + id + '" rows="' + (rows || 3) + '"' + attrs + '>' + esc(value) + '</textarea></div>';
+  }
+  function colorSelect(id, attrs, value) {
+    return '<select class="input" id="' + id + '"' + attrs + '>' + COLORS.map(function (c) { return '<option value="' + c[0] + '"' + (c[0] === value ? ' selected' : '') + '>' + esc(c[1]) + '</option>'; }).join('') + '</select>';
+  }
+  function teamSelect(id, attrs, value, s, exclude) {
+    var list = s.teams.filter(function (t) { return t.status === 'course' || t.status === 'pret' || t.status === 'finale'; });
+    return '<select class="input" id="' + id + '"' + attrs + '><option value="">Choisir…</option>' + list.map(function (t) {
+      return '<option value="' + esc(t.id) + '"' + (t.id === value ? ' selected' : '') + (t.id === exclude ? ' disabled' : '') + '>' + esc(t.name) + '</option>';
+    }).join('') + '</select>';
+  }
+  function qualifyPlan(s) {
+    var started = s.teams.filter(function (t) { return t.status !== 'pret'; });
+    var pool = ranked(s, s.teams.filter(function (t) { return t.status === 'course' || t.status === 'finale'; }));
+    var k = Math.min(pool.length, Math.max(1, Math.round(started.length * 0.3)));
+    return { n: started.length, k: k, teams: pool.slice(0, k) };
+  }
+
+  function secPilotage(d) {
+    var st = d.settings, hs = parseT(d.hunt.start), fs = parseT(d.hunt.finaleStart), html = '';
+    var ready = d.teams.filter(function (t) { return t.paid && t.status === 'pret'; }).length;
+    if (hs == null) {
+      html += '<div class="card stack"><p><b>Départ de la chasse</b></p><p class="fine">Démarre le chrono des ' + ready + ' équipes confirmées : ' + st.huntMinutes + ' minutes chacune. Les téléphones des équipes se mettent à jour à la publication.</p>' +
+        '<div class="btns"><button type="button" class="btn btn-red" data-act="hunt-start"' + (ready ? '' : ' disabled') + '>Lancer la chasse maintenant</button></div></div>';
+    } else {
+      html += '<div class="card stack"><p><b>Chasse lancée à ' + hhmm(hs) + '</b> · fin prévue à ' + hhmm(hs + st.huntMinutes * MIN) + ' · reste <b class="tchip" data-gclock="hunt"></b></p>' +
+        '<p class="fine">Après un essai, « Remettre la course à zéro » efface chronos, bonus, brassards, duels, statuts et les annonces publiées depuis le départ, puis remet la bonne phase. Les équipes et les énigmes restent.</p>' +
+        '<div class="btns"><button type="button" class="btn btn-sm btn-danger" data-act="hunt-reset">Remettre la course à zéro</button></div></div>';
+      if (fs == null) {
+        var q = qualifyPlan(d);
+        html += '<div class="card stack"><p><b>Qualification pour la finale</b></p><p class="fine">' + q.n + ' équipes parties : 30 % font ' + q.k + ' finaliste' + (q.k > 1 ? 's' : '') + '. Selon le classement actuel : ' +
+          esc(q.teams.map(function (t) { return t.name; }).join(', ') || 'aucune équipe en course') + '. Les autres équipes en course seront éliminées.</p>' +
+          '<div class="btns"><button type="button" class="btn btn-gold" data-act="qualify"' + (q.teams.length ? '' : ' disabled') + '>Qualifier ces équipes</button></div></div>';
+        html += '<div class="card stack"><p><b>Finale</b></p><p class="fine">Lance le chrono du puzzle. Note ensuite chaque arrivée dans l’onglet Équipes avec « Puzzle terminé ».</p>' +
+          '<div class="btns"><button type="button" class="btn btn-red" data-act="finale-start">Lancer la finale</button></div></div>';
+      } else {
+        html += '<div class="card stack"><p><b>Finale lancée à ' + hhmm(fs) + '</b> · chrono <b class="tchip" data-gclock="finale"></b></p><p class="fine">Note chaque arrivée dans l’onglet Équipes avec « Puzzle terminé ». Passe ensuite la phase sur « Résultats ».</p></div>';
+      }
+    }
+    var ins = toInputs(d.countdown.at);
+    html += '<div class="btns"><a class="btn btn-line" href="#ecran" data-act="screen">Ouvrir l’écran géant</a><button type="button" class="btn btn-line" data-act="copy" data-copy="' + esc(siteLink() + '#ecran') + '">Copier le lien de l’écran</button></div>' +
+      '<section class="stack"><h3 class="label">Phase affichée</h3><div class="opts">' + PHASES.map(function (p) { return opt('phase', p[0], d.phase === p[0], p[1], p[2]); }).join('') + '</div></section>' +
+      '<section class="stack"><h3 class="label">Bandeau flash</h3>' + inputField('st-headline', 'Message affiché en rouge en haut de la page (vide pour le masquer)', ' data-bind="headline" maxlength="200" placeholder="Ex. Manche 1 : les duels commencent !"', d.headline) + '</section>' +
+      '<section class="stack"><h3 class="label">Compte à rebours</h3>' + inputField('st-cd-label', 'Texte', ' data-bind="cd-label" maxlength="60" placeholder="Ex. Départ de la chasse"', d.countdown.label) +
+      '<div class="grid2"><div class="field"><label for="st-cd-date">Date</label><input class="input" type="date" id="st-cd-date" data-bind="cd-date" value="' + ins[0] + '"></div>' +
+      '<div class="field"><label for="st-cd-time">Heure de Yaoundé</label><input class="input" type="time" id="st-cd-time" data-bind="cd-time" value="' + ins[1] + '"></div></div>' +
+      '<div class="pills"><button type="button" data-act="cd-preset" data-p="close">Clôture · 10 nov.</button><button type="button" data-act="cd-preset" data-p="start">Départ · 14 nov. 14h00</button>' +
+      '<button type="button" data-act="cd-preset" data-p="15">Dans 15 min</button><button type="button" data-act="cd-preset" data-p="none">Masquer</button></div></section>';
+    return html;
+  }
+
+  function secArene(d) {
+    var f = ui.forms.duel, ds = activeDuels(d), done = d.duels.filter(function (x) { return x.status === 'fini'; }).slice(-8).reverse();
+    var other = f.ep === '__autre';
+    var html = '<section class="card stack"><h3 class="label">Nouveau duel</h3><div class="grid2">' +
+      '<div class="field"><label for="st-duel-a">Équipe A</label>' + teamSelect('st-duel-a', ' data-form="duel.a"', f.a, d, f.b) + '</div>' +
+      '<div class="field"><label for="st-duel-b">Équipe B</label>' + teamSelect('st-duel-b', ' data-form="duel.b"', f.b, d, f.a) + '</div></div>' +
+      '<div class="field"><label for="st-duel-ep">Épreuve tirée au sort</label><select class="input" id="st-duel-ep" data-form="duel.ep">' +
+      EPREUVES.concat(['__autre']).map(function (e) { return '<option value="' + esc(e) + '"' + (f.ep === e ? ' selected' : '') + '>' + esc(e === '__autre' ? 'Autre épreuve…' : e) + '</option>'; }).join('') + '</select></div>' +
+      (other ? inputField('st-duel-other', 'Nom de l’épreuve', ' data-form="duel.other" maxlength="60"', f.other) : '') +
+      '<label class="check"><input type="checkbox" data-form="duel.announce"' + (f.announce ? ' checked' : '') + '>Annoncer le duel au public</label>' +
+      '<div class="btns"><button type="button" class="btn btn-red" data-act="duel-start">Lancer le duel</button></div></section>';
+    html += '<section class="stack"><h3 class="label">Duels en cours (' + ds.length + ')</h3>' + (ds.length ? ds.map(function (x) {
+      return '<div class="sduel on" data-duel="' + esc(x.id) + '">' + duelCard(d, x, false) +
+        '<div class="btns"><button type="button" class="btn btn-gold" data-act="duel-win" data-w="' + esc(x.a) + '">Gagnant : ' + esc(teamName(d, x.a)) + '</button>' +
+        '<button type="button" class="btn btn-gold" data-act="duel-win" data-w="' + esc(x.b) + '">Gagnant : ' + esc(teamName(d, x.b)) + '</button>' +
+        '<button type="button" class="btn btn-sm btn-danger" data-act="duel-cancel">Annuler le duel</button></div></div>';
+    }).join('') : '<p class="fine">Aucun duel en cours.</p>') + '</section>';
+    html += '<section class="stack"><h3 class="label">Derniers résultats</h3>' + (done.length ? done.map(function (x) {
+      var loser = x.winner === x.a ? x.b : x.a, env = '';
+      if (!x.env) env = '<p class="fine">Enveloppe de ' + esc(teamName(d, x.winner)) + ' :</p><div class="pills">' +
+        '<button type="button" data-act="duel-env" data-env="bonus">Bonus +' + d.settings.envMin + ' min</button><button type="button" data-act="duel-env" data-env="malus">Malus −' + d.settings.envMin + ' min</button>' +
+        '<button type="button" data-act="duel-env" data-env="pochettes">Pochettes mystères</button><button type="button" data-act="duel-env" data-env="aucune">Pas d’enveloppe</button></div>';
+      else env = '<p class="fine">Enveloppe : ' + esc(ENV_LABEL[x.env]) + '</p>';
+      return '<div class="sduel" data-duel="' + esc(x.id) + '"><p><b>Duel n°' + x.n + '</b> · ' + esc(teamName(d, x.winner)) + ' bat ' + esc(teamName(d, loser)) + (x.ep ? ' (' + esc(lower(x.ep)) + ')' : '') + '</p>' + env + '</div>';
+    }).join('') : '<p class="fine">Aucun duel terminé.</p>') + '</section>';
+    return html;
+  }
+
+  function secEquipes(d) {
+    var st = d.settings, n = d.teams.length, paid = d.teams.filter(function (t) { return t.paid; }).length, nt = ui.forms.team;
+    var html = '<p class="fine">' + n + (n > 1 ? ' équipes' : ' équipe') + ' · ' + paid + ' confirmée' + (paid > 1 ? 's' : '') + ' · ' + (n - paid) + ' en attente de paiement. Le public ne voit ni numéros ni membres : seulement le nom, la couleur et le capitaine.</p>';
+    if (!ui.addOpen) html += '<div class="btns"><button type="button" class="btn btn-gold" data-act="team-add-toggle">Ajouter une équipe</button></div>';
+    else {
+      html += '<div class="card stack">' + inputField('st-new-name', 'Nom de l’équipe', ' data-form="team.name" maxlength="40"', nt.name) +
+        '<div class="field"><label for="st-new-color">Couleur</label>' + colorSelect('st-new-color', ' data-form="team.color"', nt.color) + '</div>' +
+        inputField('st-new-cap', 'Capitaine (nom ou pseudo affiché au public)', ' data-form="team.cap" maxlength="40"', nt.cap) +
+        '<label class="check"><input type="checkbox" data-form="team.paid"' + (nt.paid ? ' checked' : '') + '>Paiement reçu</label><p class="hint err" id="st-new-err" hidden></p>' +
+        '<div class="btns"><button type="button" class="btn btn-gold" data-act="team-add">Ajouter</button><button type="button" class="btn btn-line" data-act="team-add-toggle">Annuler</button></div></div>';
+    }
+    if (!n) return html + '<p class="empty">Aucune équipe pour l’instant. Ajoute chaque équipe dès que son inscription arrive sur WhatsApp.</p>';
+    var order = { course: 0, finale: 0, gagnante: 1, pret: 2, eliminee: 3 };
+    var list = d.teams.map(function (t, i) { return [t, i]; }).sort(function (a, b) { return (order[a[0].status] - order[b[0].status]) || (a[1] - b[1]); }).map(function (x) { return x[0]; });
+    return html + list.map(function (t) { return teamRowHTML(d, t); }).join('');
+  }
+  function teamRowHTML(d, t) {
+    var st = d.settings, c = COLOR[t.color], editing = ui.editTeam === t.id, timed = !!(d.hunt.start || t.start);
+    var html = '<div class="trow" data-team="' + esc(t.id) + '"><div class="trow-top">' + band(t.color) +
+      '<div class="who"><b>' + esc(t.name) + '</b><small>' + esc(c.label) + (t.captain ? ' · Cap. ' + esc(t.captain) : '') + (t.paid ? '' : ' · paiement en attente') + '</small></div>' +
+      '<div class="stepper" aria-label="' + esc(st.scoreLabel) + '"><button type="button" data-act="score" data-d="-1" aria-label="Retirer un ' + esc(unit(st.scoreLabel, 1)) + '">−</button><output>' + t.score + '</output><button type="button" data-act="score" data-d="1" aria-label="Ajouter un ' + esc(unit(st.scoreLabel, 1)) + '">+</button></div></div>';
+    if (timed) html += '<div class="trow-clock"><span class="label">' + timeLabel(d) + '</span>' + tclock(t) + '</div>';
+    html += '<div class="pills" role="group" aria-label="Statut">' + STATUSES.map(function (x) { return '<button type="button" data-act="status" data-v="' + x[0] + '" aria-pressed="' + (t.status === x[0]) + '">' + esc(x[1]) + '</button>'; }).join('') + '</div>';
+    if (timed) html += '<div class="adj"><span class="label">Bonus</span><button type="button" class="plus" data-act="adj" data-sec="60">+1 min</button><button type="button" class="plus" data-act="adj" data-sec="300">+5 min</button>' +
+      '<span class="label">Malus</span><button type="button" class="minus" data-act="adj" data-sec="-60">−1 min</button><button type="button" class="minus" data-act="adj" data-sec="-300">−5 min</button></div>';
+    if (t.status === 'finale' && d.hunt.finaleStart && !t.finishAt) html += '<button type="button" class="btn btn-gold btn-block" data-act="finish">Puzzle terminé</button>';
+    if (t.finishAt && d.hunt.finaleStart) html += '<p class="fine">Puzzle terminé en ' + puzzleTime(d, t) + (t.place ? ' · ' + ordinal(t.place) : '') + '</p>';
+    html += '<label class="check"><input type="checkbox" data-bind="t-paid"' + (t.paid ? ' checked' : '') + '>Paiement reçu</label>';
+    if (editing) {
+      html += '<div class="stack">' + inputField('st-name-' + esc(t.id), 'Nom de l’équipe', ' data-bind="t-name" maxlength="40"', t.name) +
+        '<div class="field"><label for="st-color-' + esc(t.id) + '">Couleur</label>' + colorSelect('st-color-' + esc(t.id), ' data-bind="t-color"', t.color) + '</div>' +
+        inputField('st-cap-' + esc(t.id), 'Capitaine', ' data-bind="t-captain" maxlength="40"', t.captain) +
+        (t.status === 'gagnante' ? '<div class="field"><label for="st-place-' + esc(t.id) + '">Ordre d’arrivée</label><select class="input" id="st-place-' + esc(t.id) + '" data-bind="t-place"><option value="0">Non précisé</option>' + [1, 2, 3, 4, 5, 6, 7, 8].map(function (p) { return '<option value="' + p + '"' + (t.place === p ? ' selected' : '') + '>' + ordinal(p) + '</option>'; }).join('') + '</select></div>' : '') +
+        '<div class="btns"><button type="button" class="btn btn-sm btn-line" data-act="team-start">Démarrer son chrono maintenant</button>' + (t.start ? '<button type="button" class="btn btn-sm btn-line" data-act="team-start-reset">Revenir au départ commun</button>' : '') + '</div></div>';
+    }
+    html += '<div class="btns"><button type="button" class="btn btn-sm btn-line" data-act="team-edit">' + (editing ? 'Fermer' : 'Modifier') + '</button><button type="button" class="btn btn-sm btn-danger" data-act="team-del">Supprimer</button></div></div>';
+    return html;
+  }
+
+  function secAnnonces(d) {
+    var f = ui.forms.news, list = d.news.slice().sort(function (a, b) { return (parseT(b.at) || 0) - (parseT(a.at) || 0); });
+    return '<section class="stack"><h3 class="label">Nouvelle annonce</h3><div class="pills" role="group" aria-label="Type d’annonce">' +
+      KINDS.map(function (k) { return '<button type="button" data-act="kind" data-v="' + k[0] + '" aria-pressed="' + (f.kind === k[0]) + '">' + esc(k[1]) + '</button>'; }).join('') + '</div>' +
+      areaField('st-news-text', 'Texte', ' data-form="news.text" maxlength="600" placeholder="Ex. Indice bonus : une pochette dort au pied du grand fromager."', f.text, 4) +
+      '<div class="btns"><button type="button" class="btn btn-gold" data-act="news-add">Ajouter l’annonce</button></div><p class="hint">L’heure est ajoutée automatiquement. Les duels, résultats et enveloppes s’annoncent tout seuls depuis l’onglet Arène.</p></section>' +
+      '<section class="stack"><h3 class="label">Annonces (' + list.length + ')</h3>' + (list.length ? '<ul class="nlist">' + list.map(function (n) {
+        var t = parseT(n.at);
+        return '<li data-news="' + esc(n.id) + '"><p class="news-meta">' + (t != null ? '<time>' + esc(when(t)) + '</time>' : '') + '<span class="kind">' + esc(KIND_LABEL[n.kind]) + '</span></p><p class="news-text">' + esc(n.text) + '</p>' +
+          '<div class="btns"><button type="button" class="btn btn-sm btn-danger" data-act="news-del">Supprimer</button></div></li>';
+      }).join('') + '</ul>' : '<p class="empty">Aucune annonce.</p>') + '</section>';
+  }
+
+  /* Riddle keys and texts stay private: in the staff's own store (db, readable by editors only) and on this device. */
+  function storeSecret(id, data) {
+    SECRETS[id] = data; saveLS(LS.secrets, SECRETS);
+    token().then(function (tok) { return http(dbUrl('secrets/' + id, tok), { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }); })
+      .then(function (w) { if (!w.ok) throw w; })
+      .catch(function () { toast('Clé gardée sur cet appareil seulement : la sauvegarde en ligne a échoué.', 5000); });
+  }
+  function dropSecret(id) {
+    delete SECRETS[id]; saveLS(LS.secrets, SECRETS);
+    token().then(function (tok) { return http(dbUrl('secrets/' + id, tok), { method: 'DELETE' }); }).catch(noop);
+  }
+  function loadSecrets() {
+    if (ui.secretsLoaded || !FB_OK || !ui.auth) return;
+    ui.secretsLoaded = true;
+    token().then(function (tok) { return http(dbUrl('secrets', tok)); }).then(function (res) {
+      if (!res.ok) throw res;
+      var m = obj(res.body) ? res.body : {};
+      Object.keys(m).forEach(function (k) { if (obj(m[k]) && typeof m[k].key === 'string') SECRETS[k] = clone(m[k]); });
+      saveLS(LS.secrets, SECRETS);
+      if (ui.sec === 'enigmes') refreshStaff();
+    }).catch(function () { ui.secretsLoaded = false; });
+  }
+  var qrState = 0, qrWaiters = [];
+  function loadQR(cb) {
+    if (window.qrcode) { cb(true); return; }
+    qrWaiters.push(cb);
+    if (qrState === 1) return;
+    if (qrState === 3) { flushQR(false); return; }
+    qrState = 1;
+    var i = 0;
+    var next = function () {
+      if (window.qrcode) { qrState = 2; flushQR(true); return; }
+      if (i >= QR_URLS.length) { qrState = 3; flushQR(false); return; }
+      var sc = document.createElement('script');
+      sc.src = QR_URLS[i++]; sc.async = true; sc.onload = next; sc.onerror = next;
+      document.head.appendChild(sc);
+    };
+    next();
+  }
+  function flushQR(ok) { var w = qrWaiters; qrWaiters = []; w.forEach(function (f) { try { f(ok); } catch (e) { /* ignoré */ } }); }
+  function qrSVG(text) {
+    var q = window.qrcode(0, 'M');
+    q.addData(text); q.make();
+    var n = q.getModuleCount(), p = '';
+    for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) if (q.isDark(r, c)) p += 'M' + c + ' ' + r + 'h1v1h-1z';
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-3 -3 ' + (n + 6) + ' ' + (n + 6) + '" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect x="-3" y="-3" width="' + (n + 6) + '" height="' + (n + 6) + '" fill="#ffffff"/><path d="' + p + '" fill="#000000"/></svg>';
+  }
+  function siteLink() { return S().settings.link || (location.origin + location.pathname); }
+  function riddleLink(s, id, key) { return siteLink() + '#enigme-' + id + '-' + key; }
+
+  function secEnigmes(d) {
+    if (!cryptoOK()) return '<p class="empty">Ce navigateur ne permet pas de créer des énigmes chiffrées. Utilise Chrome ou Safari à jour.</p>';
+    loadSecrets();
+    var f = ui.forms.riddle, editing = f.edit && findR(d, f.edit);
+    var html = '<p class="fine">Chaque énigme reçoit un QR code à imprimer et à cacher dans la forêt. Le texte reste illisible dans la page tant que le QR n’est pas scanné. Si tu mets une réponse, l’équipe la tape sur son téléphone et voit ton message quand elle a juste.</p>' +
+      (FB_OK ? '' : '<p class="notice">Le site n’est pas encore relié à Firebase : les clés des énigmes restent sur cet appareil.</p>') +
+      '<section class="card stack"><h3 class="label">' + (editing ? 'Modifier ' + esc(editing.title || 'l’énigme') : 'Nouvelle énigme') + '</h3>' +
+      inputField('st-r-title', 'Titre affiché', ' data-form="riddle.title" maxlength="60" placeholder="Énigme ' + (d.riddles.length + 1) + '"', f.title) +
+      areaField('st-r-q', 'Texte de l’énigme', ' data-form="riddle.q" maxlength="2000"', f.q, 4) +
+      areaField('st-r-h', 'Indice (facultatif, caché derrière un bouton)', ' data-form="riddle.h" maxlength="600"', f.h, 2) +
+      areaField('st-r-ans', 'Réponses acceptées, une par ligne (facultatif)', ' data-form="riddle.answers" maxlength="400" placeholder="fromager\nle grand fromager"', f.answers, 2) +
+      '<p class="hint">Majuscules, accents et articles (le, la, les…) ne comptent pas.</p>' +
+      areaField('st-r-ok', 'Message quand la réponse est bonne', ' data-form="riddle.ok" maxlength="600" placeholder="Ex. Bravo ! Votre prochaine piste vous attend près du pont."', f.ok, 2) +
+      '<div class="btns"><button type="button" class="btn btn-gold" data-act="riddle-save">' + (editing ? 'Enregistrer' : 'Créer l’énigme') + '</button>' + (editing ? '<button type="button" class="btn btn-line" data-act="riddle-cancel">Annuler</button>' : '') + '</div></section>';
+    if (!d.riddles.length) return html + '<p class="empty">Aucune énigme pour l’instant.</p>';
+    var qrReady = !!window.qrcode;
+    if (!qrReady && qrState === 0) loadQR(function () { if (ui.sec === 'enigmes') refreshStaff(); });
+    html += '<div class="btns"><button type="button" class="btn btn-line" data-act="sheet-dl">Ouvrir la planche des QR codes à imprimer</button></div>';
+    return html + d.riddles.slice().sort(function (a, b) { return a.n - b.n; }).map(function (r) {
+      var sec = SECRETS[r.id], link = sec ? riddleLink(d, r.id, sec.key) : '';
+      var qr = !sec ? '<div class="qr wait">Clé absente sur cet appareil</div>' : qrReady ? '<div class="qr">' + qrSVG(link) + '</div>' : '<div class="qr wait">' + (qrState === 3 ? 'QR indisponible ici : copie le lien' : 'QR en cours…') + '</div>';
+      return '<div class="rcard" data-riddle="' + esc(r.id) + '"><div class="rcard-in">' + qr + '<div class="stack"><p><b>' + esc(r.title || 'Énigme ' + r.n) + '</b></p>' +
+        '<p class="fine">' + (r.ans.length ? r.ans.length + (r.ans.length > 1 ? ' réponses acceptées' : ' réponse acceptée') : 'Sans réponse à taper') + (sec ? ' · ' + esc(String(sec.q || '').slice(0, 80)) + (String(sec.q || '').length > 80 ? '…' : '') : '') + '</p>' +
+        '<div class="btns">' + (sec ? '<button type="button" class="btn btn-sm btn-line" data-act="riddle-test">Tester</button><button type="button" class="btn btn-sm btn-line" data-act="copy" data-copy="' + esc(link) + '">Copier le lien</button><button type="button" class="btn btn-sm btn-line" data-act="riddle-edit">Modifier</button>' : '') +
+        '<button type="button" class="btn btn-sm btn-danger" data-act="riddle-del">Supprimer</button></div></div></div></div>';
+    }).join('');
+  }
+
+  function saveRiddle() {
+    var f = ui.forms.riddle, d = S(), q = str(f.q, 2000);
+    if (!q) { toast('Écris le texte de l’énigme.'); var el = $('st-r-q'); if (el) el.focus(); return; }
+    var editing = f.edit && findR(d, f.edit) ? f.edit : '';
+    var id = editing || randHex(4), keyHex = editing ? (SECRETS[id] || {}).key : randHex(16);
+    if (!keyHex) { toast('Clé introuvable : supprime cette énigme et recrée-la.'); return; }
+    var seen = {}, answers = String(f.answers || '').split(/\n|;/).map(normAnswer).filter(function (a) { if (!a || seen[a]) return false; seen[a] = 1; return true; }).slice(0, 8);
+    var okMsg = str(f.ok, 600) || 'Bonne réponse ! Continuez la chasse.';
+    var title = str(f.title, 60) || (editing ? (findR(d, editing).title || '') : 'Énigme ' + (d.riddles.length + 1));
+    var hint = str(f.h, 600);
+    seal(unhex(keyHex), { q: q, h: hint }).then(function (box) {
+      return Promise.all(answers.map(function (a) { return answerKey(a, keyHex, id).then(function (k) { return seal(k, { m: okMsg }); }); })).then(function (ans) {
+        storeSecret(id, { key: keyHex, title: title, q: q, h: hint, answers: String(f.answers || ''), ok: str(f.ok, 600) });
+        ui.forms.riddle = defaultForms().riddle;
+        addOp({ k: 'riddle-set', r: { id: id, n: 0, title: title, iv: box.iv, ct: box.ct, ans: ans } });
+        toast(editing ? 'Énigme modifiée : son QR code ne change pas.' : 'Énigme créée : imprime son QR code.');
+      });
+    }).catch(function () { toast('Impossible de chiffrer l’énigme sur cet appareil.', 5000); });
+  }
+
+  function openSheet() {
+    loadQR(function (ok) {
+      if (!ok) { toast('QR codes indisponibles : recharge la page et réessaie.', 5000); return; }
+      var d = S(), items = d.riddles.slice().sort(function (a, b) { return a.n - b.n; }).filter(function (r) { return SECRETS[r.id]; });
+      if (!items.length) { toast('Aucune clé d’énigme sur cet appareil.'); return; }
+      var cards = items.map(function (r) {
+        return '<div class="c"><h2>' + esc(r.title || 'Énigme ' + r.n) + '</h2>' + qrSVG(riddleLink(d, r.id, SECRETS[r.id].key)) + '<p>Grande Chasse au Trésor · Afuro Mboa Fest</p><p>Scanne avec l’appareil photo de ton téléphone</p></div>';
+      }).join('');
+      var doc = '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QR codes des énigmes</title><style>@page{size:A4;margin:12mm}body{margin:0;padding:12px;font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff}' +
+        '.bar{margin-bottom:12px}.bar button{font-size:16px;padding:10px 16px}@media print{.bar{display:none}body{padding:0}}' +
+        '.g{display:grid;grid-template-columns:repeat(2,1fr);gap:8mm}.c{border:1px dashed #888;padding:6mm;text-align:center;break-inside:avoid}.c svg{width:62mm;height:62mm;max-width:100%}h2{margin:0 0 3mm;font-size:20pt}p{margin:2mm 0 0;font-size:9pt;color:#444}</style></head>' +
+        '<body><div class="bar"><button type="button" onclick="print()">Imprimer</button></div><div class="g">' + cards + '</div></body></html>';
+      var url = URL.createObjectURL(new Blob([doc], { type: 'text/html' }));
+      var w = window.open(url, '_blank');
+      if (!w) { var link = document.createElement('a'); link.href = url; link.download = 'qr-enigmes-grande-chasse.html'; document.body.appendChild(link); link.click(); link.remove(); }
+    });
+  }
+
+  function secReglages(d) {
+    var st = d.settings;
+    return '<section class="stack"><h3 class="label">Équipes et inscriptions</h3><div class="grid2">' +
+      inputField('st-min', 'Personnes minimum', ' data-bind="teamMin" type="number" min="1" max="12" inputmode="numeric"', st.teamMin) +
+      inputField('st-max', 'Personnes maximum', ' data-bind="teamMax" type="number" min="1" max="12" inputmode="numeric"', st.teamMax) +
+      inputField('st-price', 'Prix par personne (F)', ' data-bind="price" type="number" min="0" step="500" inputmode="numeric"', st.price) +
+      inputField('st-maxteams', 'Équipes maximum', ' data-bind="maxTeams" type="number" min="1" max="500" inputmode="numeric"', st.maxTeams) + '</div>' +
+      inputField('st-deadline', 'Date limite affichée', ' data-bind="deadlineText" maxlength="80"', st.deadlineText) +
+      '<label class="check"><input type="checkbox" data-bind="showPlaces"' + (st.showPlaces ? ' checked' : '') + '>Afficher les places restantes</label></section>' +
+      '<section class="stack"><h3 class="label">Chrono des équipes</h3><div class="grid2">' +
+      inputField('st-minutes', 'Temps de chasse (minutes)', ' data-bind="huntMinutes" type="number" min="5" max="600" inputmode="numeric"', st.huntMinutes) +
+      inputField('st-env', 'Enveloppe bonus/malus (minutes)', ' data-bind="envMin" type="number" min="1" max="60" inputmode="numeric"', st.envMin) + '</div>' +
+      '<div class="field"><label for="st-mode">Affichage du temps</label><select class="input" id="st-mode" data-bind="timeMode"><option value="restant"' + (st.timeMode === 'restant' ? ' selected' : '') + '>Temps restant (le bonus ajoute du temps)</option><option value="ecoule"' + (st.timeMode === 'ecoule' ? ' selected' : '') + '>Temps écoulé (le bonus retire du temps)</option></select></div>' +
+      inputField('st-score', 'Nom du score (au pluriel)', ' data-bind="scoreLabel" maxlength="30"', st.scoreLabel) + '</section>' +
+      '<section class="stack"><h3 class="label">Contacts et paiement</h3><div class="grid2">' +
+      inputField('st-wa', 'WhatsApp des inscriptions', ' data-bind="wa" maxlength="30" inputmode="tel"', st.wa) +
+      inputField('st-wa2', 'Autre contact', ' data-bind="wa2" maxlength="30" inputmode="tel"', st.wa2) +
+      inputField('st-pay', 'Numéro de paiement', ' data-bind="payNumber" maxlength="30" inputmode="tel"', st.payNumber) +
+      inputField('st-payname', 'Nom du compte', ' data-bind="payName" maxlength="60"', st.payName) + '</div>' +
+      inputField('st-link', 'Adresse du site pour les QR codes (vide : automatique)', ' data-bind="link" maxlength="200" inputmode="url" placeholder="' + esc(location.origin + location.pathname) + '"', st.link) + '</section>' +
+      '<section class="stack"><h3 class="label">Compte staff</h3><p class="fine">Compte connecté : ' + esc(ui.auth ? ui.auth.email : '') + '</p>' +
+      '<div class="btns"><button type="button" class="btn btn-sm btn-danger" data-act="logout">Se déconnecter de cet appareil</button></div></section>';
+  }
+
+  function pubBarHTML() {
+    var dirty = isDirty(), auto = autoOn(), txt;
+    if (!FB_OK) txt = 'Site pas encore relié à Firebase : rien ne peut être publié.';
+    else if (ui.publishing) txt = 'Publication en cours…';
+    else if (dirty && ui.pubOffline) txt = 'Hors connexion : envoi dès que le réseau revient';
+    else if (dirty) txt = auto ? 'Envoi automatique dans un instant…' : 'Modifications non publiées';
+    else txt = 'Tout est publié' + (parseT(PUB.updatedAt) != null ? ' · ' + hhmm(parseT(PUB.updatedAt)) : '');
+    return '<p class="pubstate' + (dirty ? ' dirty' : '') + '">' + esc(txt) + '</p>' +
+      '<label class="check"><input type="checkbox" data-act="auto"' + (auto ? ' checked' : '') + '>Auto</label>' +
+      (dirty && !ui.publishing ? '<button type="button" class="btn btn-line" data-act="discard">Annuler</button>' : '') +
+      '<button type="button" class="btn btn-red" data-act="publish"' + (!dirty || ui.publishing ? ' disabled' : '') + '>Publier</button>';
+  }
+  function updatePubBar() { var f = document.querySelector('#staff .sheet-foot .wrap'); if (f) f.innerHTML = pubBarHTML(); renderPreview(); }
+
+  function renderStaff(resetScroll) {
+    var el = $('staff');
+    if (!el || !ui.staff) return;
+    var old = el.querySelector('.sheet-body'), top = old && !resetScroll ? old.scrollTop : 0, d = S();
+    var body = { pilotage: secPilotage, arene: secArene, equipes: secEquipes, annonces: secAnnonces, enigmes: secEnigmes, reglages: secReglages }[ui.sec] || secPilotage;
+    el.innerHTML = '<div class="sheet-head"><div class="wrap"><div class="sheet-bar"><h2 class="sheet-title" id="staff-title">Espace staff</h2><button type="button" class="btn btn-sm btn-line" data-act="staff-close">Fermer</button></div>' +
+      '<div class="secs" role="tablist">' + SECS.map(function (s) { return '<button type="button" class="tab" role="tab" data-act="sec" data-sec="' + s[0] + '" aria-selected="' + (ui.sec === s[0]) + '">' + s[1] + '</button>'; }).join('') + '</div></div></div>' +
+      '<div class="sheet-body"><div class="wrap">' + body(d) + '</div></div><div class="sheet-foot"><div class="wrap">' + pubBarHTML() + '</div></div>';
+    var nb = el.querySelector('.sheet-body');
+    if (nb) nb.scrollTop = top;
+    var bar = el.querySelector('.secs'), on = bar && bar.querySelector('[aria-selected="true"]');
+    if (bar && on) bar.scrollLeft = Math.max(0, on.offsetLeft - (bar.clientWidth - on.offsetWidth) / 2);
+    tick();
+  }
+  function openStaff() {
+    if (!ui.canEdit) { openLogin(); return; }
+    ui.staff = true;
+    $('staff').hidden = false;
+    syncScrollLock();
+    renderStaff(true);
+    persistStaff();
+  }
+  function closeStaff() {
+    ui.staff = false;
+    $('staff').hidden = true;
+    syncScrollLock();
+    if (fromHash() === 'staff') { try { location.hash = ui.tab; } catch (e) { /* hash indisponible */ } }
+    persistStaff();
+  }
+
+  function onBind(t, isChange) {
+    var b = t.getAttribute('data-bind'), d = S();
+    if (!b) return;
+    var v = t.type === 'checkbox' ? t.checked : t.value, tm;
+    var discrete = t.type === 'radio' || t.type === 'checkbox' || t.tagName === 'SELECT' || t.type === 'number' || t.type === 'date' || t.type === 'time';
+    if (discrete !== !!isChange) return;
+    switch (b) {
+      case 'phase': addOp({ k: 'phase', v: v }, false); break;
+      case 'headline': addOp({ k: 'headline', v: v, c: 'headline', slow: 1 }, false); break;
+      case 'cd-label': addOp({ k: 'countdown', label: v, when: d.countdown.at, c: 'countdown', slow: 1 }, false); break;
+      case 'cd-date': case 'cd-time': addOp({ k: 'countdown', label: d.countdown.label, when: fromInputs(val('st-cd-date'), val('st-cd-time')), c: 'countdown', slow: 1 }, false); break;
+      case 'teamMin': case 'teamMax': case 'price': case 'maxTeams': case 'huntMinutes': case 'envMin':
+        var n = parseInt(v, 10);
+        if (!isNaN(n)) {
+          addOp({ k: 'set', key: b, v: n, c: 'set:' + b, slow: 1 }, false);
+          if (b === 'teamMin' && S().settings.teamMax < n) addOp({ k: 'set', key: 'teamMax', v: n, c: 'set:teamMax', slow: 1 });
+        }
+        break;
+      case 'showPlaces': addOp({ k: 'set', key: b, v: !!v, c: 'set:' + b }, false); break;
+      case 'timeMode': addOp({ k: 'set', key: b, v: v, c: 'set:' + b }, false); break;
+      case 'deadlineText': case 'wa': case 'wa2': case 'payNumber': case 'payName': case 'scoreLabel': case 'link':
+        addOp({ k: 'set', key: b, v: v, c: 'set:' + b, slow: 1 }, false); break;
+      case 't-name': tm = teamOf(t); if (tm) addOp({ k: 'team-set', id: tm.id, f: 'name', v: v, c: 'ts:' + tm.id + ':name', slow: 1 }, false); break;
+      case 't-captain': tm = teamOf(t); if (tm) addOp({ k: 'team-set', id: tm.id, f: 'captain', v: v, c: 'ts:' + tm.id + ':captain', slow: 1 }, false); break;
+      case 't-color': tm = teamOf(t); if (tm) addOp({ k: 'team-set', id: tm.id, f: 'color', v: v, c: 'ts:' + tm.id + ':color' }); break;
+      case 't-place': tm = teamOf(t); if (tm) addOp({ k: 'team-set', id: tm.id, f: 'place', v: int(v, 0, 0, 99), c: 'ts:' + tm.id + ':place' }); break;
+      case 't-paid': tm = teamOf(t); if (tm) addOp({ k: 'team-set', id: tm.id, f: 'paid', v: !!v, c: 'ts:' + tm.id + ':paid' }); break;
+    }
+  }
+  function onForm(t) {
+    var path = String(t.getAttribute('data-form') || '').split('.'), f = ui.forms[path[0]];
+    if (!f || !path[1]) return;
+    f[path[1]] = t.type === 'checkbox' ? t.checked : t.value;
+    persistStaff();
+    if (path[0] === 'duel' && (path[1] === 'ep' || path[1] === 'a' || path[1] === 'b')) renderStaff();
+  }
+
+  function cdPreset(p) {
+    var d = S();
+    if (p === 'close') addOp({ k: 'countdown', label: 'Clôture des inscriptions', when: '2026-11-10T00:00:00+01:00' });
+    else if (p === 'start') addOp({ k: 'countdown', label: 'Départ de la chasse', when: '2026-11-14T14:00:00+01:00' });
+    else if (p === '15') {
+      var keep = d.countdown.label;
+      if (!keep || keep === 'Clôture des inscriptions' || keep === 'Départ de la chasse' || keep === 'Fin de la chasse') keep = 'Fin de la manche';
+      addOp({ k: 'countdown', label: keep, when: isoWAT(Math.ceil((nowMs() + 15 * MIN) / MIN) * MIN) });
+    } else addOp({ k: 'countdown', label: '', when: '' });
+  }
+  function addTeam() {
+    var nt = ui.forms.team, name = str(nt.name, 40), err = $('st-new-err');
+    var fail = function (msg) { if (err) { err.textContent = msg; err.hidden = false; } var f = $('st-new-name'); if (f) f.focus(); };
+    if (!name) { fail('Donne un nom à l’équipe.'); return; }
+    if (S().teams.some(function (t) { return lower(t.name) === lower(name); })) { fail('Une équipe porte déjà ce nom.'); return; }
+    var t = { id: rid(), name: name, color: COLOR[nt.color] ? nt.color : 'rouge', captain: str(nt.cap, 40), paid: !!nt.paid, status: 'pret', score: 0, place: 0, addedAt: isoWAT(nowMs()), start: '', adj: 0, log: [], stopAt: '', finishAt: '' };
+    ui.forms.team = defaultForms().team;
+    ui.addOpen = false;
+    addOp({ k: 'team-add', t: t });
+    toast('Équipe ajoutée.');
+  }
+  function startDuel() {
+    var f = ui.forms.duel, d = S(), a = findT(d, f.a), b = findT(d, f.b);
+    if (!a || !b || a === b) { toast('Choisis deux équipes différentes.'); return; }
+    var ep = f.ep === '__autre' ? str(f.other, 60) : f.ep;
+    var duel = { id: rid(), n: 0, a: a.id, b: b.id, ep: ep, status: 'encours', winner: '', env: '', at: isoWAT(nowMs()), endAt: '' };
+    addOp({ k: 'duel-add', d: duel }, false);
+    if (f.announce) addOp(news('duel', 'Duel à l’arène : ' + a.name + ' contre ' + b.name + (ep ? ' · ' + ep : '') + '.'), false);
+    ui.forms.duel = defaultForms().duel;
+    renderStaff();
+    persistStaff();
+  }
+  function duelWin(duelId, w) {
+    var d = S(), x = findD(d, duelId);
+    if (!x || x.status !== 'encours') return;
+    var wt = findT(d, w), lt = findT(d, w === x.a ? x.b : x.a);
+    addOp({ k: 'duel-result', id: duelId, w: w }, false);
+    addOp(news('resultat', 'Duel n°' + x.n + (x.ep ? ' · ' + x.ep : '') + ' : victoire de l’équipe ' + (wt ? wt.name : '?') + ', qui prend le brassard de l’équipe ' + (lt ? lt.name : '?') + '. L’équipe ' + (lt ? lt.name : '?') + ' est éliminée.'), false);
+    renderStaff();
+  }
+  function duelEnv(duelId, env) {
+    var d = S(), x = findD(d, duelId), mins = d.settings.envMin;
+    if (!x || x.env) return;
+    var t = findT(d, x.winner);
+    addOp({ k: 'duel-env', id: duelId, env: env }, false);
+    if (t && env === 'bonus') { addOp({ k: 'adj', id: t.id, sec: mins * 60, why: 'Enveloppe bonus' }, false); addOp(news('info', 'L’équipe ' + t.name + ' tire l’enveloppe bonus : +' + mins + ' min !'), false); }
+    if (t && env === 'malus') { addOp({ k: 'adj', id: t.id, sec: -mins * 60, why: 'Enveloppe malus' }, false); addOp(news('info', 'L’équipe ' + t.name + ' tire l’enveloppe malus : −' + mins + ' min.'), false); }
+    if (t && env === 'pochettes') { addOp({ k: 'adj', id: t.id, sec: 0, why: 'Enveloppe pochettes mystères' }, false); addOp(news('info', 'L’équipe ' + t.name + ' gagne des pochettes mystères !'), false); }
+    renderStaff();
+  }
+
+  function enableStaff() {
+    if (ui.canEdit || !ui.auth) return;
+    ui.canEdit = true;
+    var fab = $('staff-fab');
+    if (fab) fab.hidden = ui.screen;
+    var st = loadLS(LS.staff), reopen = false;
+    if (obj(st)) {
+      var f = obj(st.forms) ? st.forms : {}, df = defaultForms();
+      Object.keys(df).forEach(function (k) { if (obj(f[k])) Object.keys(df[k]).forEach(function (kk) { if (f[k][kk] != null) df[k][kk] = f[k][kk]; }); });
+      ui.forms = df;
+      if (SEC_OK[st.sec]) ui.sec = st.sec;
+      ui.editTeam = typeof st.edit === 'string' ? st.edit : null;
+      ui.addOpen = !!st.add;
+      var ops = arr(st.ops).filter(obj);
+      var un = obj(st.unsure) && typeof st.unsure.pub === 'string' ? { pub: st.unsure.pub, count: int(st.unsure.count, 0, 0, ops.length) } : null;
+      if (un && SERVER.seen) { if (PUB.hist.indexOf(un.pub) >= 0) ops = ops.slice(un.count); un = null; }
+      ui.ops = ops; ui.unsure = un; ui.sentCount = un ? un.count : 0;
+      recompute();
+      if (ui.ops.length && !isDirty() && !ui.unsure) { ui.ops = []; recompute(); }
+      reopen = !!st.open;
+      ui.restoreScroll = int(st.scroll, 0, 0);
+    }
+    renderPublic();
+    if (reopen || fromHash() === 'staff') {
+      openStaff();
+      var body = $('staff').querySelector('.sheet-body');
+      if (body && ui.restoreScroll) body.scrollTop = ui.restoreScroll;
+    }
+    if (ui.ops.length) { toast('Des changements non publiés ont été retrouvés : ils partent maintenant.', 4500); scheduleAuto(false); }
+    if (ui.riddle && ui.riddle.state === 'locked') loadRiddle();
+  }
+
+
+
+  /* ---------- Events ---------- */
+  function onClick(e) {
+    var a = e.target.closest('[data-act]');
+    if (!a) return;
+    var act = a.getAttribute('data-act'), tm, row, d = S();
+    switch (act) {
+      case 'tab': e.preventDefault(); goTab(a.getAttribute('data-tab'), a.closest('#v-hero') || a.closest('.view') ? 'force' : true); break;
+      case 'copy': copyText(a.getAttribute('data-copy'), a, null); break;
+      case 'copy-msg': copyText(val('reg-msg'), a, $('reg-msg')); break;
+      case 'edit-form': ui.regDone = false; $('reg-out').hidden = true; $('reg').hidden = false; $('reg').scrollIntoView({ block: 'start', behavior: smooth() }); break;
+      case 'clear-form': arm(a, 'Confirmer l’effacement', function () { delLS(LS.form); ui.regDone = false; ui.lastReg = null; var f = $('reg'); if (f) f.reset(); showErrors([]); updateFormMeta(); a.classList.remove('armed'); a.textContent = 'Effacer le formulaire'; }); break;
+      case 'news-all': ui.showAllNews = true; renderDirect(); break;
+      case 'pick': ui.myTeam = a.getAttribute('data-id'); saveLS(LS.team, ui.myTeam); renderMine(); tick(); break;
+      case 'unpick': ui.myTeam = ''; delLS(LS.team); renderMine(); break;
+      case 'riddle-open': row = ui.myRiddles.filter(function (r) { return r.id === a.getAttribute('data-id'); })[0]; if (row) openRiddle(row.id, row.key); break;
+      case 'riddle-close': closeRiddle(); break;
+      case 'screen': e.preventDefault(); if (ui.staff) closeStaff(); try { location.hash = 'ecran'; } catch (x) { setScreen(true); } break;
+      case 'screen-exit': try { location.hash = 'direct'; } catch (x) { setScreen(false); } break;
+      case 'fullscreen':
+        try { var p = document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); if (p && p.catch) p.catch(function () { toast('Plein écran indisponible ici : utilise celui du navigateur.'); }); } catch (x) { toast('Plein écran indisponible ici.'); }
+        break;
+      case 'staff-open': case 'staff-login': if (ui.canEdit) openStaff(); else openLogin(); break;
+      case 'login-close': closeLogin(); break;
+      case 'logout': arm(a, 'Confirmer la déconnexion', signOut); break;
+      case 'staff-close': closeStaff(); break;
+      case 'sec': ui.sec = a.getAttribute('data-sec'); renderStaff(true); persistStaff(); break;
+      case 'publish': publishNow(); break;
+      case 'auto': saveLS(LS.auto, !!a.checked); if (a.checked) scheduleAuto(false); else clearTimeout(timers.auto); updatePubBar(); break;
+      case 'discard': arm(a, 'Tout annuler ?', function () { ui.ops = []; ui.unsure = null; ui.sentCount = 0; recompute(); renderPublic(); renderStaff(); persistStaff(); }); break;
+      case 'cd-preset': cdPreset(a.getAttribute('data-p')); break;
+      case 'hunt-start': arm(a, 'Confirmer le départ', function () {
+        var ready = d.teams.filter(function (t) { return t.paid && t.status === 'pret'; }).length;
+        addOp({ k: 'hunt-start', mins: d.settings.huntMinutes }, false);
+        addOp(news('alerte', 'Top départ ! La chasse est lancée : ' + ready + ' équipes en course, ' + d.settings.huntMinutes + ' minutes au chrono.'));
+      }); break;
+      case 'hunt-reset': arm(a, 'Confirmer la remise à zéro', function () { addOp({ k: 'hunt-reset' }); }); break;
+      case 'qualify': arm(a, 'Confirmer la qualification', function () {
+        var q = qualifyPlan(d);
+        addOp({ k: 'qualify', ids: q.teams.map(function (t) { return t.id; }) }, false);
+        addOp(news('resultat', 'Qualifiées pour la finale : ' + q.teams.map(function (t) { return t.name; }).join(', ') + '.'));
+      }); break;
+      case 'finale-start': arm(a, 'Confirmer la finale', function () {
+        var n = d.teams.filter(function (t) { return t.status === 'finale'; }).length;
+        addOp({ k: 'finale-start' }, false);
+        addOp(news('alerte', 'La finale commence : ' + n + ' équipe' + (n > 1 ? 's' : '') + ' assemble' + (n > 1 ? 'nt' : '') + ' le puzzle, chrono en direct.'));
+      }); break;
+      case 'team-add-toggle': ui.addOpen = !ui.addOpen; renderStaff(); persistStaff(); if (ui.addOpen) { var nf = $('st-new-name'); if (nf) nf.focus(); } break;
+      case 'team-add': addTeam(); break;
+      case 'score': tm = teamOf(a); if (tm) addOp({ k: 'score', id: tm.id, d: int(a.getAttribute('data-d'), 0) }); break;
+      case 'status': tm = teamOf(a); if (tm) addOp({ k: 'status', id: tm.id, v: a.getAttribute('data-v') }); break;
+      case 'adj': tm = teamOf(a); if (tm) { var sec = int(a.getAttribute('data-sec'), 0); addOp({ k: 'adj', id: tm.id, sec: sec, why: sec >= 0 ? 'Bonus' : 'Malus' }); } break;
+      case 'finish': tm = teamOf(a); if (tm) {
+        var pt = fmtDur(nowMs() - (parseT(d.hunt.finaleStart) || nowMs())), place = nextPlace(d, tm);
+        addOp({ k: 'finish', id: tm.id }, false);
+        addOp(news('resultat', 'L’équipe ' + tm.name + ' termine le puzzle en ' + pt + ' : ' + ordinal(place) + ' place !'));
+      } break;
+      case 'team-start': tm = teamOf(a); if (tm) addOp({ k: 'team-start', id: tm.id, when: isoWAT(nowMs()) }); break;
+      case 'team-start-reset': tm = teamOf(a); if (tm) addOp({ k: 'team-start', id: tm.id, when: '' }); break;
+      case 'team-edit': tm = teamOf(a); if (tm) { ui.editTeam = ui.editTeam === tm.id ? null : tm.id; renderStaff(); persistStaff(); } break;
+      case 'team-del': tm = teamOf(a); if (tm) arm(a, 'Confirmer la suppression', function () { addOp({ k: 'team-del', id: tm.id }); }); break;
+      case 'kind': ui.forms.news.kind = a.getAttribute('data-v'); all('[data-act="kind"]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === a)); }); persistStaff(); break;
+      case 'news-add':
+        var text = str(ui.forms.news.text, 600);
+        if (!text) { var nt = $('st-news-text'); if (nt) nt.focus(); toast('Écris le texte de l’annonce.'); break; }
+        ui.forms.news.text = '';
+        addOp(news(ui.forms.news.kind, text));
+        break;
+      case 'news-del': row = a.closest('[data-news]'); if (row) arm(a, 'Confirmer la suppression', function () { addOp({ k: 'news-del', id: row.getAttribute('data-news') }); }); break;
+      case 'duel-start': startDuel(); break;
+      case 'duel-win': row = a.closest('[data-duel]'); if (row) duelWin(row.getAttribute('data-duel'), a.getAttribute('data-w')); break;
+      case 'duel-cancel': row = a.closest('[data-duel]'); if (row) arm(a, 'Confirmer', function () { addOp({ k: 'duel-cancel', id: row.getAttribute('data-duel') }); }); break;
+      case 'duel-env': row = a.closest('[data-duel]'); if (row) duelEnv(row.getAttribute('data-duel'), a.getAttribute('data-env')); break;
+      case 'riddle-save': saveRiddle(); break;
+      case 'riddle-cancel': ui.forms.riddle = defaultForms().riddle; renderStaff(); persistStaff(); break;
+      case 'riddle-test': row = a.closest('[data-riddle]'); if (row && SECRETS[row.getAttribute('data-riddle')]) openRiddle(row.getAttribute('data-riddle'), SECRETS[row.getAttribute('data-riddle')].key); break;
+      case 'riddle-edit': row = a.closest('[data-riddle]'); if (row) {
+        var rid8 = row.getAttribute('data-riddle'), sec2 = SECRETS[rid8];
+        if (sec2) { ui.forms.riddle = { edit: rid8, title: sec2.title || '', q: sec2.q || '', h: sec2.h || '', answers: sec2.answers || '', ok: sec2.ok || '' }; renderStaff(true); persistStaff(); }
+      } break;
+      case 'riddle-del': row = a.closest('[data-riddle]'); if (row) arm(a, 'Confirmer la suppression', function () { var id8 = row.getAttribute('data-riddle'); dropSecret(id8); addOp({ k: 'riddle-del', id: id8 }); }); break;
+      case 'sheet-dl': openSheet(); break;
+    }
+  }
+
+  function bindEvents() {
+    var app = $('app');
+    app.addEventListener('click', onClick);
+    app.addEventListener('submit', function (e) {
+      if (e.target.id === 'riddle-form') { e.preventDefault(); submitAnswer(); return; }
+      if (e.target.id === 'login-form') { e.preventDefault(); submitLogin(); return; }
+      if (e.target.id !== 'reg') return;
+      e.preventDefault();
+      var o = readForm(), errs = validate(o, S().settings);
+      showErrors(errs);
+      if (errs.length) { var first = $(errs[0][0]); if (first && first.focus) { try { first.focus({ preventScroll: true }); } catch (x) { first.focus(); } } return; }
+      ui.regDone = true; ui.lastReg = o;
+      saveLS(LS.form, o);
+      showRegOut(o, true);
+    });
+    app.addEventListener('input', function (e) {
+      var t = e.target;
+      if (t.closest('#reg')) {
+        var grp = t.closest('[aria-invalid]');
+        if (t.getAttribute('aria-invalid')) t.removeAttribute('aria-invalid');
+        if (grp) grp.removeAttribute('aria-invalid');
+        updateFormMeta();
+        later('form', function () { var o = readForm(); if (o) saveLS(LS.form, o); }, 400);
+        return;
+      }
+      if (t.closest('#staff')) { if (t.hasAttribute('data-form')) { if (t.tagName !== 'SELECT' && t.type !== 'checkbox') onForm(t); } else onBind(t, false); }
+    });
+    app.addEventListener('change', function (e) {
+      var t = e.target;
+      if (t.closest('#reg')) {
+        var grp = t.closest('[aria-invalid]');
+        if (grp) grp.removeAttribute('aria-invalid');
+        updateFormMeta();
+        var o = readForm(); if (o) saveLS(LS.form, o);
+        return;
+      }
+      if (t.closest('#staff')) { if (t.hasAttribute('data-form')) { if (t.tagName === 'SELECT' || t.type === 'checkbox') onForm(t); } else if (!t.hasAttribute('data-act')) onBind(t, true); }
+    });
+    $('staff').addEventListener('scroll', function () { later('scroll', persistStaff, 400); }, true);
+    /* Views that changed while someone was typing are redrawn once they leave the field, but never in the middle of a
+       tap: redrawing between press and release would swallow the tap on the button they were reaching for. */
+    var flushStale = function () {
+      if (ui.ptr) return;
+      if (ui.stale.reg && !focusIn('reg')) { ui.stale.reg = false; renderInscription(); }
+      if (ui.stale.staff && !focusIn('staff')) { ui.stale.staff = false; renderStaff(); }
+    };
+    document.addEventListener('pointerdown', function () { ui.ptr = true; }, true);
+    var release = function () { setTimeout(function () { ui.ptr = false; flushStale(); }, 0); };
+    document.addEventListener('pointerup', release, true);
+    document.addEventListener('pointercancel', release, true);
+    app.addEventListener('focusout', function () { setTimeout(flushStale, 0); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      if (ui.login) closeLogin(); else if (ui.riddle) closeRiddle(); else if (ui.staff) closeStaff(); else if (ui.screen) { try { location.hash = 'direct'; } catch (x) { setScreen(false); } }
+    });
+    window.addEventListener('hashchange', route);
+  }
+
+  function route() {
+    var h = fromHash(), rd = riddleFromHash(h);
+    if (rd) { openRiddle(rd.id, rd.key); return; }
+    if (h === 'ecran') { setScreen(true); return; }
+    if (ui.screen) setScreen(false);
+    if (VIEW_OK[h]) { if (h !== ui.tab) showTab(h, true); return; }
+    if (h === 'staff') { if (ui.canEdit) openStaff(); else if (!ui.auth) openLogin(); }
+  }
+
+  /* ---------- Boot ---------- */
+  $('app').innerHTML = shellHTML();
+  var startHash = fromHash();
+  ui.tab = VIEW_OK[startHash] ? startHash : defaultTab();
+  renderPublic();
+  bindEvents();
+  route();
+  setInterval(function () { tick(); tickScreenCountdown(); }, 1000);
+  syncClock(true);
+  pull(true).then(function () {
+    if (!ui.tabTouched && !VIEW_OK[startHash] && !riddleFromHash(startHash) && startHash !== 'ecran') showTab(defaultTab());
+    if (ui.auth) enableStaff();
+    startPolling();
+  });
+  /* A copy of the page stays on the phone, so it still opens without network at the venue. */
+  if ('serviceWorker' in navigator && window.isSecureContext) { try { navigator.serviceWorker.register('sw.js').catch(noop); } catch (e) { /* pas de copie hors ligne */ } }
+})();
+</script>
+</body>
+</html>
